@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="b40fa5c7-aeb9-46ef-b3a4-16cfaef52632" ChangeDateTime="03/12/2016 09:45:51">
+    <Property Name="ElementName" Value="[dbo].[tblCheckTriggers].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblCheckTriggers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TriggerId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7184f771-75a9-402a-b932-1d944335a664" ChangeDateTime="03/12/2016 10:03:54">
+    <Property Name="ElementName" Value="[dbo].[tblCheckTrigger].[CheckToPerformId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblCheckTrigger]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4ad4d826-60c2-4dbd-ac84-e36bb963bd02" ChangeDateTime="03/30/2016 15:37:39">
+    <Property Name="ElementName" Value="[dbo].[tblCheckSuite].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblCheckSuite]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckSuiteId" />
+  </Operation>
+</Operations>

@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "dnx451": {
+      "bin": {
+        "assembly": "../../ThirdParty/MicroOrm.Pocos.SqlGenerator.dll",
+        "pdb": "../../ThirdParty/MicroOrm.Pocos.SqlGenerator.pdb"
+      }
+    }
+  }
+}

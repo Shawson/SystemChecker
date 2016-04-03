@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "dnx451": {
+      "bin": {
+        "assembly": "../../ThirdParty/Dapper.DataRepositories.dll",
+        "pdb": "../../ThirdParty/Dapper.DataRepositories.pdb"
+      },
+      "dependencies": {
+        "MicroOrm.Pocos.SqlGenerator": "1.0.0-*"
+      }
+    }
+  }
+}
