@@ -1,0 +1,31 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SystemChecker.TestBed Console Library",
+  "authors": [ "Shaw.Young" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "SystemChecker.Model": "1.0.0-*",
+    "Newtonsoft.Json": "8.0.2",
+    "Quartz": "2.3.3",
+    "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
+    "NSubstitute": "1.9.2"
+  },
+
+  "commands": {
+    "SystemChecker.TestBed": "SystemChecker.TestBed"
+  },
+
+  "frameworks": {
+    "dnx451": { }
+  }
+}
