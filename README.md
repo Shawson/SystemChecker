@@ -69,11 +69,11 @@ public CheckResult PerformCheck(ICheckResultRepository resultsRepo)
 
   This will make an HTTP request and store the response times, content, response codes etc.
 
-SystemChecker.Model.Checkers.PingChecker - ICMP Ping Response Check
+* SystemChecker.Model.Checkers.PingChecker - ICMP Ping Response Check
 
   This will perform a standard ICMP 'Ping' at the given server.
 
-SystemChecker.Model.Checkers.SmtpHeloChecker - SMTP HELO Response Check
+* SystemChecker.Model.Checkers.SmtpHeloChecker - SMTP HELO Response Check
 
   This will try to connect to an SMTP server and then issue a HELO command and store the response.
 
