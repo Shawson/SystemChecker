@@ -111,7 +111,7 @@ namespace SystemChecker.Model
                 ITrigger updateTrigger = TriggerBuilder.Create()
                           .WithIdentity($"TriggerScheduleUpdater", $"groupX")
                           .StartNow()
-                          .WithCronSchedule("* 0/5 * * * ? *")  // check every 5 minutes for changes to the work list
+                          .WithCronSchedule("0 0/5 * * * ? *")  // check every 5 minutes for changes to the work list
                           .Build();
                 sched.ScheduleJob(updatejob, updateTrigger);
                 
