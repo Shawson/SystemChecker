@@ -53,9 +53,9 @@ namespace SystemChecker.Model.Scheduling
             var logger = sched.Context["Logger"] as ILogger;
             var triggers = triggerRepository.GetWhere(new { CheckId = check.CheckId, Disabled = (DateTime?)null });
 
-            var newTriggers = triggers.Where(x => !CheckTriggers.Any(y => y.TriggerId == x.TriggerId)).ToList();
-            var removedTriggers = CheckTriggers.Where(x => !triggers.Any(y => y.TriggerId == x.TriggerId)).ToList();
-            var changedTriggers = triggers.Where(x => CheckTriggers.Any(y => y.TriggerId == x.TriggerId && x.Updated > y.Updated)).ToList();
+            var newTriggers = triggers.Where(x => !CheckTriggers.Any(y => y.CheckId == check.CheckId && y.TriggerId == x.TriggerId)).ToList();
+            var removedTriggers = CheckTriggers.Where(x => x.CheckId == check.CheckId && !triggers.Any(y => y.TriggerId == x.TriggerId)).ToList();
+            var changedTriggers = triggers.Where(x => CheckTriggers.Any(y => y.CheckId == check.CheckId && y.TriggerId == x.TriggerId && x.Updated > y.Updated)).ToList();
             foreach (var trigger in newTriggers)
             {
                 logger.LogInformation("Trigger ID " + trigger.TriggerId + " added for " + check.SystemName + ": " + trigger.CronExpression);
