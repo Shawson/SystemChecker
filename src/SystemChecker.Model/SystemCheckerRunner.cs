@@ -28,10 +28,6 @@ namespace SystemChecker.Model
 
         public void Start()
         {
-            var checkToPerformRepo = repoFactory.GetCheckToPerformRepository();
-            var triggerRepository = repoFactory.GetCheckTriggerRepository();
-            var resultsRepo = repoFactory.GetCheckResultRepository();
-
             // setup the scheduling
             ISchedulerFactory schedFact = new StdSchedulerFactory();
             sched = schedFact.GetScheduler();
@@ -42,93 +38,31 @@ namespace SystemChecker.Model
             // Kids: don't share repositories!
             // Instead use the factory so each thread gets its own instance created with it's own connection etc
             sched.Context.Add("RepositoryFactory", repoFactory);
+            sched.Context.Add("Logger", logger);
 
             // todo: add events for raising these kind of updates - log4net?
             logger.LogInformation("Starting Scheduler");
 
-            try
-            {
-                // WHADDYA' GOT
-                var checkList = checkToPerformRepo.GetWhere(new { Disabled = (DateTime?)null }).ToList();
+            // check for changes to the job or schedules
+            IJobDetail updatejob = JobBuilder.Create<ScheduleUpdater>()
+                    .WithDescription("New Job Checker")
+                    .WithIdentity("ScheduleUpdater", $"Updater")
+                    .Build();
 
-                logger.LogInformation($"Loaded {checkList.Count} Jobs");
+            ITrigger updateTrigger = TriggerBuilder.Create()
+                    .WithIdentity($"TriggerScheduleUpdater", $"Updater")
+                    .StartNow()
+                    .WithCronSchedule("0 0/5 * * * ? *")  // check every 5 minutes for changes to the work list
+                    .Build();
 
-                foreach (var check in checkList)
-                {
-                    // setup a the schedule for this check...
-                    IJobDetail job = JobBuilder.Create<ScheduledCheckRunner>()
-                        .WithIdentity(check.SystemName, $"group{check.CheckId}")
-                        .WithDescription(check.SystemName)
-                        .UsingJobData("CheckToPerformId", check.CheckId)
-                        .Build();
+            sched.ScheduleJob(updatejob, updateTrigger);
+            sched.Start();
+            sched.TriggerJob(updatejob.Key);
 
-                    var triggers = triggerRepository.GetWhere(new { CheckId = check.CheckId });
+            logger.LogInformation($"Scheduler started");
 
-                    CheckResult lastRun = null;
-                    bool lastRunLoaded = false;
-
-                    foreach (var trigger in triggers)
-                    {
-                        ITrigger qTrigger;
-
-                        if (trigger.PerformCatchUp)
-                        {
-                            if (!lastRunLoaded)
-                            {
-                                lastRun = resultsRepo.GetLastRun(check.CheckId);
-                            }
-                            var startAt = lastRun == null
-                                ? new DateTimeOffset(DateTime.Now)
-                                : new DateTimeOffset(lastRun.CheckDTS);
-
-                            qTrigger = TriggerBuilder.Create()
-                                .WithIdentity($"Trigger{check.SystemName}", $"group{check.CheckId}")
-                                .StartAt(startAt)
-                                .WithCronSchedule(trigger.CronExpression, x => x.WithMisfireHandlingInstructionFireAndProceed())
-                                .Build();
-                        }
-                        else
-                        {
-                            qTrigger = TriggerBuilder.Create()
-                                .WithIdentity($"Trigger{check.SystemName}", $"group{check.CheckId}")
-                                .StartNow()
-                                .WithCronSchedule(trigger.CronExpression, x => x.WithMisfireHandlingInstructionFireAndProceed())
-                                .Build();
-                        }
-
-                        sched.ScheduleJob(job, qTrigger);
-                    }
-                }
-
-                logger.LogInformation($"Jobs added to scheduler");
-
-                // check for changes to the job or schedules
-                IJobDetail updatejob = JobBuilder.Create<ScheduleUpdater>()
-                        .WithDescription("New Job Checker")
-                        .WithIdentity("ScheduleUpdater", $"groupX")
-                        .Build();
-
-                ITrigger updateTrigger = TriggerBuilder.Create()
-                          .WithIdentity($"TriggerScheduleUpdater", $"groupX")
-                          .StartNow()
-                          .WithCronSchedule("0 0/5 * * * ? *")  // check every 5 minutes for changes to the work list
-                          .Build();
-                sched.ScheduleJob(updatejob, updateTrigger);
-                
-                sched.Start();
-
-                logger.LogInformation($"Scheduler started");
-
-                // todo: Add a signalR server which the web ui can connect to to request immediate re-runs of tests/ be notified of recent results
-                //http://stackoverflow.com/questions/11140164/signalr-console-app-example
-
-            }
-            catch (Exception ex)
-            {
-                // raise event?
-                logger.LogError($"{DateTime.Now} : {ex.ToString()}");
-            }
-
+            // todo: Add a signalR server which the web ui can connect to to request immediate re-runs of tests/ be notified of recent results
+            //http://stackoverflow.com/questions/11140164/signalr-console-app-example
         }
         public void Stop()
         {

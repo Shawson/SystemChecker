@@ -1,4 +1,5 @@
 ﻿using MicroOrm.Pocos.SqlGenerator.Attributes;
+using System;
 
 namespace SystemChecker.Model.Data
 {
@@ -19,5 +20,7 @@ namespace SystemChecker.Model.Data
         /// If the checker app has been offline for a while, should we try and catch up missed tests, or simply wait for the next occurence to fire?
         /// </summary>
         public bool PerformCatchUp { get; set; }
+        public DateTime Disabled { get; set; }
+        public DateTime Updated { get; set; }
     }
 }
