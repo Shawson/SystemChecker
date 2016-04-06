@@ -6,5 +6,6 @@
     [Outcomes] NVARCHAR(MAX) NULL,
 	[CheckTypeId] INT NOT NULL DEFAULT 0, 
     [CheckSuiteId] INT NULL, 
-    [Disabled] DATETIME NULL 
+    [Disabled] DATETIME NULL,
+	[Updated] DATETIME NOT NULL
 )

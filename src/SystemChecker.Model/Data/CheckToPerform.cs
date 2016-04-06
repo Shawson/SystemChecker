@@ -25,6 +25,7 @@ namespace SystemChecker.Model.Data
         public int? CheckSuiteId { get; set; }
 
         public DateTime? Disabled { get; set; }
+        public DateTime Updated { get; set; }
 
         public IEnumerable<CheckTrigger> Triggers { get; set; }
     }
