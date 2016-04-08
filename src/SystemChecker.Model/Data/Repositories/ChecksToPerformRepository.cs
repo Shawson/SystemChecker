@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Model.Data.Repositories
 {
-    public interface ICheckToPerformRepository : IBaseRepository<CheckToPerform>
-    {
-        List<CheckToPerform> GetEnabledChecks();
-    }
-
     public class CheckToPerformRepository : BaseRepository<CheckToPerform>, ICheckToPerformRepository
     {
         public CheckToPerformRepository(IDbConnection connection)

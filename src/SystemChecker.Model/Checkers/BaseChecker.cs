@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using SystemChecker.Model.Data;
+using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Data.Repositories;
 
 namespace SystemChecker.Model.Checkers

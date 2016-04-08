@@ -1,8 +1,8 @@
 ﻿using System.Data;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Model.Data.Repositories
 {
-    public interface ICheckTypeRepository : IBaseRepository<CheckType> { }
     public class CheckTypeRepository : BaseRepository<CheckType>, ICheckTypeRepository
     {
         public CheckTypeRepository(IDbConnection connection)

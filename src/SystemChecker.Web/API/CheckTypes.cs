@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-using SystemChecker.Model.Data.Repositories;
 using SystemChecker.Web.Models;
+using SystemChecker.Model.Data.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

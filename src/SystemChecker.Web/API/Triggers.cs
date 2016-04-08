@@ -2,9 +2,9 @@
 using System.Linq;
 using Microsoft.AspNet.Mvc;
 using SystemChecker.Model.Data;
-using SystemChecker.Model.Data.Repositories;
 using Quartz;
 using System;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Web.API
 {

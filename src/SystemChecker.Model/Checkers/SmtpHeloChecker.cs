@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using SystemChecker.Model.Data;
-using SystemChecker.Model.Data.Repositories;
+using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
 
