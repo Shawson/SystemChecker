@@ -31,7 +31,7 @@ namespace SystemChecker.TestBed
                 var triggerRepository = repoFactory.GetCheckTriggerRepository();
 
                 // 14 & 15
-                var check = checkToPerformRepo.GetFirst(new { CheckId = 14 });
+                var check = checkToPerformRepo.GetById(14);
 
                 var scheduleRunner = new ScheduledCheckRunner()
                 {

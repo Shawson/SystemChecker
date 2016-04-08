@@ -8,8 +8,6 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "Dapper.DataRepositories": "1.0.0-*",
-        "MicroOrm.Pocos.SqlGenerator": "1.0.0-*"
       }
     }
   },

@@ -17,7 +17,7 @@ namespace SystemChecker.Model.Checkers
 
         public CheckResult GetLastRun(ICheckResultRepository repo)
         {
-            return repo.GetLastRun(CheckToPerformId);
+            return repo.GetLastRunByCheckId(CheckToPerformId);
         }
         
         /// <summary>
@@ -34,27 +34,37 @@ namespace SystemChecker.Model.Checkers
                 ? null
                 : string.IsNullOrWhiteSpace(lastRun.RunData) 
                         ? null 
-                        : JObject.Parse(lastRun.RunData); 
+                        : JObject.Parse(lastRun.RunData);
 
             var runResult = new JObject();
             runResult.Add("ThisRun", thisRunData);
             runResult.Add("LastRun", lastRunData);
 
-            foreach (var outcome in Outcomes)
+            try
             {
-                if (outcome.Condition.IsSatisfied(runResult))
+                foreach (var outcome in Outcomes)
                 {
-                    outcome.JsonRunData = JsonConvert.SerializeObject(thisRunData);
-                    return outcome;
+                    if (outcome.Condition.IsSatisfied(runResult))
+                    {
+                        outcome.JsonRunData = JsonConvert.SerializeObject(thisRunData);
+                        return outcome;
+                    }
                 }
-            }
 
-            return new Outcome
+                return new Outcome
+                {
+                    JsonRunData = JsonConvert.SerializeObject(thisRunData),
+                    SuccessStatus = Enums.SuccessStatus.Failure,
+                    Description = "Failure"
+                };
+            }
+            finally
             {
-                JsonRunData = JsonConvert.SerializeObject(thisRunData),
-                SuccessStatus = Enums.SuccessStatus.Failure,
-                Description = "Failure"
-            };
+                thisRunData = null;
+                thisRun = null;
+                runResult = null;
+                lastRun = null;
+            }
         }
     }
 }

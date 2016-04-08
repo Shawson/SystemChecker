@@ -11,7 +11,7 @@ namespace SystemChecker.Model.Checkers.Serialisation
     {
         public static ISystemCheck Unpack(CheckToPerform check, IRepositoryFactory repoFactory)
         {
-            var checkType = repoFactory.GetCheckTypeRepository().GetFirst(new { CheckTypeId = check.CheckTypeId });
+            var checkType = repoFactory.GetCheckTypeRepository().GetById(check.CheckTypeId);
             // todo: cache check types?
 
             var checker = (ISystemCheck)Activator.CreateInstance(checkType.CheckAssembly, checkType.CheckTypeName).Unwrap();

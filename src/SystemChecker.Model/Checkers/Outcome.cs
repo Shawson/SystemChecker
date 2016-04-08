@@ -1,5 +1,4 @@
-﻿using MicroOrm.Pocos.SqlGenerator.Attributes;
-using SystemChecker.Model.Enums;
+﻿using SystemChecker.Model.Enums;
 using SystemChecker.Model.QueryBuilder;
 
 namespace SystemChecker.Model.Checkers

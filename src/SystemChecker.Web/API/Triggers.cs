@@ -22,14 +22,19 @@ namespace SystemChecker.Web.API
         [HttpGet("{checkId}")]
         public IEnumerable<CheckTrigger> Get(int checkId)
         {
-            return _repository.GetWhere(new { CheckId = checkId }).ToList();
+            return _repository.GetEnabledTriggersForCheckId(checkId).ToList();
         }
 
         // GET api/Triggers/5/1
         [HttpGet("{checkId}/{triggerId}")]
         public CheckTrigger Get(int checkId, int triggerId)
         {
-            return _repository.GetFirst(new { CheckId = checkId, TriggerId = triggerId });
+            var trigger = _repository.GetById(triggerId);
+
+            if (trigger != null && trigger.CheckId == checkId)
+                return trigger;
+
+            return null;
         }
 
         // GET api/Triggers/5

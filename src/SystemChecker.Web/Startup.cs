@@ -1,11 +1,9 @@
-﻿using MicroOrm.Pocos.SqlGenerator;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using System.Data.SqlClient;
-using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Repositories;
 
 namespace SystemChecker.Web
@@ -33,10 +31,6 @@ namespace SystemChecker.Web
             var connectionString = Configuration[$"Data:DefaultConnection:ConnectionString-{Configuration["COMPUTERNAME"]}"];
 
             services.AddScoped<IDbConnection>((_) => new SqlConnection(connectionString));
-
-            services.AddScoped<ISqlGenerator<CheckToPerform>, SqlGenerator<CheckToPerform>>();
-            services.AddScoped<ISqlGenerator<CheckTrigger>, SqlGenerator<CheckTrigger>>();
-            services.AddScoped<ISqlGenerator<CheckType>, SqlGenerator<CheckType>>();
 
             services.AddScoped<ICheckToPerformRepository, CheckToPerformRepository>();
             services.AddScoped<ICheckTriggerRepository, CheckTriggerRepository>();
