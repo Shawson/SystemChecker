@@ -1,13 +1,10 @@
-﻿using MicroOrm.Pocos.SqlGenerator.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SystemChecker.Model.Data
 {
-    [StoredAs("tblChecksToPerform")]
     public class CheckToPerform
     {
-        [KeyProperty(Identity = true)]
         public int CheckId { get; set; }
         public int CheckTypeId { get; set; }
         public string SystemName { get; set; }

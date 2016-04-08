@@ -41,17 +41,6 @@
           "lib/net451/Dapper.dll": {}
         }
       },
-      "Dapper.DataRepositories/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1",
-        "dependencies": {
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0"
-        }
-      },
-      "MicroOrm.Pocos.SqlGenerator/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1"
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -333,8 +322,6 @@
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
           "Dapper": "1.50.0-beta8",
-          "Dapper.DataRepositories": "1.0.0",
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0",
           "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
@@ -493,17 +480,6 @@
           "lib/net451/Dapper.dll": {}
         }
       },
-      "Dapper.DataRepositories/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1",
-        "dependencies": {
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0"
-        }
-      },
-      "MicroOrm.Pocos.SqlGenerator/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1"
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -785,8 +761,6 @@
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
           "Dapper": "1.50.0-beta8",
-          "Dapper.DataRepositories": "1.0.0",
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0",
           "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
@@ -945,17 +919,6 @@
           "lib/net451/Dapper.dll": {}
         }
       },
-      "Dapper.DataRepositories/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1",
-        "dependencies": {
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0"
-        }
-      },
-      "MicroOrm.Pocos.SqlGenerator/1.0.0": {
-        "type": "project",
-        "framework": "DNX,Version=v4.5.1"
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1237,8 +1200,6 @@
         "framework": "DNX,Version=v4.5.1",
         "dependencies": {
           "Dapper": "1.50.0-beta8",
-          "Dapper.DataRepositories": "1.0.0",
-          "MicroOrm.Pocos.SqlGenerator": "1.0.0",
           "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-final",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
@@ -1360,14 +1321,6 @@
     }
   },
   "libraries": {
-    "Dapper.DataRepositories/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/Dapper.DataRepositories/project.json"
-    },
-    "MicroOrm.Pocos.SqlGenerator/1.0.0": {
-      "type": "project",
-      "path": "../../wrap/MicroOrm.Pocos.SqlGenerator/project.json"
-    },
     "SystemChecker.Model/1.0.0": {
       "type": "project",
       "path": "../../src/SystemChecker.Model/project.json"

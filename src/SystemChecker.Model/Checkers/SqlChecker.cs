@@ -50,6 +50,8 @@ namespace SystemChecker.Model.Checkers
 
                 var result = PassStatus(sqlResponse, resultsRepo);
 
+                sqlResponse = null;
+
                 return new CheckResult
                 {
                     Result = (int)result.SuccessStatus,
@@ -99,6 +101,10 @@ namespace SystemChecker.Model.Checkers
                 result.FailureDetail = ex.ToString();
                 result.Result = (int)SuccessStatus.UnexpectedErrorDuringCheck;
                 return result;
+            }
+            finally
+            {
+                lastRun = null;
             }
         }
     }

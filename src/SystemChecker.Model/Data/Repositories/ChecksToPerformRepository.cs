@@ -1,20 +1,35 @@
-﻿using Dapper.DataRepositories;
-using MicroOrm.Pocos.SqlGenerator;
+﻿using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Dapper;
+using System;
 
 namespace SystemChecker.Model.Data.Repositories
 {
-    public interface ICheckToPerformRepository : IDataRepository<CheckToPerform>
+    public interface ICheckToPerformRepository : IBaseRepository<CheckToPerform>
     {
+        List<CheckToPerform> GetEnabledChecks();
     }
-    public class CheckToPerformRepository : DataRepository<CheckToPerform>, ICheckToPerformRepository
-    {
-        public CheckToPerformRepository(IDbConnection connection, ISqlGenerator<CheckToPerform> sqlGenerator)
-            : base(connection, sqlGenerator)
-        { }
 
+    public class CheckToPerformRepository : BaseRepository<CheckToPerform>, ICheckToPerformRepository
+    {
+        public CheckToPerformRepository(IDbConnection connection)
+            : base(
+                 connection,
+                 "tblChecksToPerform",
+                "CheckId",
+                "CheckTypeId, SystemName, Settings, Outcomes, CheckSuiteId, Disabled, Updated",
+                "@CheckTypeId, @SystemName, @Settings, @Outcomes, @CheckSuiteId, @Disabled, @Updated"
+                 )
+        { }
+        
+        public List<CheckToPerform> GetEnabledChecks()
+        {
+            return Connection.Query<CheckToPerform>(
+                $@"SELECT {Columns}
+                FROM [{TableName}] 
+                WHERE Disabled is null")
+                .ToList();
+        }
     }
 }

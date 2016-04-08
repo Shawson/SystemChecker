@@ -63,6 +63,10 @@ namespace SystemChecker.Model.Checkers
                     Result = (int)SuccessStatus.UnexpectedErrorDuringCheck
                 };
             }
+            finally
+            {
+                request = null;
+            }
 
             try {
                 using (Stream stream = response.GetResponseStream())
@@ -83,15 +87,23 @@ namespace SystemChecker.Model.Checkers
                     ElapsedMilliseconds = (int)timer.ElapsedMilliseconds
                 };
 
-                var result = PassStatus(runData, resultsRepo);
-
-                return new CheckResult
+                try
                 {
-                    Result = (int)result.SuccessStatus,
-                    FailureDetail = result.Description,
-                    DurationMS = (int)timer.ElapsedMilliseconds,
-                    RunData = result.JsonRunData
-                };
+                    var result = PassStatus(runData, resultsRepo);
+
+                    return new CheckResult
+                    {
+                        Result = (int)result.SuccessStatus,
+                        FailureDetail = result.Description,
+                        DurationMS = (int)timer.ElapsedMilliseconds,
+                        RunData = result.JsonRunData
+                    };
+                }
+                finally
+                {
+                    runData = null;
+                }
+                
             }
             catch(Exception ex)
             {
@@ -100,6 +112,12 @@ namespace SystemChecker.Model.Checkers
                     FailureDetail = ex.ToString(),
                     Result = (int)SuccessStatus.UnexpectedErrorDuringCheck
                 };
+            }
+            finally
+            {
+                timer = null;
+                response.Dispose();
+                response = null;
             }
         }
     }

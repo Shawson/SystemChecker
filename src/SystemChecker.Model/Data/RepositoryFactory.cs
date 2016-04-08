@@ -1,8 +1,6 @@
-﻿using MicroOrm.Pocos.SqlGenerator;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Data.Repositories;
-using System;
 
 namespace SystemChecker.Model.Data
 {
@@ -17,20 +15,20 @@ namespace SystemChecker.Model.Data
         }
         public ICheckTypeRepository GetCheckTypeRepository()
         {
-            return new CheckTypeRepository(new SqlConnection(connectionString), new SqlGenerator<CheckType>());
+            return new CheckTypeRepository(new SqlConnection(connectionString));
         }
         public ICheckToPerformRepository GetCheckToPerformRepository()
         {
-            return new CheckToPerformRepository(new SqlConnection(connectionString), new SqlGenerator<CheckToPerform>());
+            return new CheckToPerformRepository(new SqlConnection(connectionString));
         }
         public ICheckResultRepository GetCheckResultRepository()
         {
-            return new CheckResultRepository(new SqlConnection(connectionString), new SqlGenerator<CheckResult>());
+            return new CheckResultRepository(new SqlConnection(connectionString));
         }
 
         public ICheckTriggerRepository GetCheckTriggerRepository()
         {
-            return new CheckTriggerRepository(new SqlConnection(connectionString), new SqlGenerator<CheckTrigger>());
+            return new CheckTriggerRepository(new SqlConnection(connectionString));
         }
     }
 }

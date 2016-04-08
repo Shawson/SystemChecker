@@ -1,12 +1,9 @@
-﻿using MicroOrm.Pocos.SqlGenerator.Attributes;
-using System;
+﻿using System;
 
 namespace SystemChecker.Model.Data
 {
-    [StoredAs("tblCheckTrigger")]
     public class CheckTrigger
     {
-        [KeyProperty(Identity = true)]
         public int TriggerId { get; set; }
         public int CheckId { get; set; }
 

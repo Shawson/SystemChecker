@@ -31,13 +31,14 @@ namespace SystemChecker.Model.Checkers
                         RoundtripTime = (int)reply.RoundtripTime
                     };
 
+                    reply = null;
+
                     var result = PassStatus(thisRun, resultsRepo);
 
                     return new CheckResult
                     {
                         Result = (int)result.SuccessStatus,
                         FailureDetail = result.Description,
-                        DurationMS = (int)reply.RoundtripTime,
                         RunData = result.JsonRunData
                     };
                 }
@@ -57,6 +58,11 @@ namespace SystemChecker.Model.Checkers
                         FailureDetail = ex.Message,
                         Result = (int)SuccessStatus.UnexpectedErrorDuringCheck
                     };
+                }
+                finally
+                {
+                    buffer = null;
+                    options = null;
                 }
             }
         }

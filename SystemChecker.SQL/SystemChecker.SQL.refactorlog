@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CheckSuiteId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2c275655-bb2e-4fb8-b2e6-d5176f7c0b1e" ChangeDateTime="04/08/2016 10:56:22">
+    <Property Name="ElementName" Value="[dbo].[tblCheckType].[CheckType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblCheckType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckTypeName" />
+  </Operation>
 </Operations>

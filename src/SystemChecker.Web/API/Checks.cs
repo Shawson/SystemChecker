@@ -44,7 +44,7 @@ namespace SystemChecker.Web.API
         [HttpGet("{id}")]
         public CheckToPerform Get(int id)
         {
-            var toDo = _repository.GetFirst(new { CheckToPerformId = id });
+            var toDo = _repository.GetById(id);
 
             return toDo;
         }

@@ -1,15 +1,10 @@
 ﻿using System;
-using SystemChecker.Model.Data;
-using Microsoft.Extensions.Configuration;
 using Quartz;
 using Quartz.Impl;
 using SystemChecker.Model.Scheduling;
 using Quartz.Impl.Matchers;
 using System.Text;
-using System.Threading;
 using SystemChecker.Model.Data.Interfaces;
-using System.Linq;
-using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model
@@ -67,46 +62,6 @@ namespace SystemChecker.Model
         public void Stop()
         {
             sched.Shutdown(true);
-        }
-
-        private static string DumpSchedulerCurrentState(IScheduler scheduler)
-        {
-            var jobGroups = scheduler.GetJobGroupNames();
-            var builder = new StringBuilder().AppendLine().AppendLine();
-
-            foreach (var group in jobGroups)
-            {
-                var groupMatcher = GroupMatcher<JobKey>.GroupContains(group);
-                var jobKeys = scheduler.GetJobKeys(groupMatcher);
-
-                foreach (var jobKey in jobKeys)
-                {
-                    var detail = scheduler.GetJobDetail(jobKey);
-                    var triggers = scheduler.GetTriggersOfJob(jobKey);
-
-                    foreach (ITrigger trigger in triggers)
-                    {
-                        builder.AppendLine(string.Format("Job: {0}", jobKey.Name));
-
-                        var nextFireTime = trigger.GetNextFireTimeUtc();
-                        if (nextFireTime.HasValue)
-                        {
-                            builder.Append($"Next : {nextFireTime.Value.LocalDateTime} ({(nextFireTime.Value - DateTime.Now).ToString(@"dd\.hh\:mm\:ss")})");
-                        }
-                        var previousFireTime = trigger.GetPreviousFireTimeUtc();
-                        if (previousFireTime.HasValue)
-                        {
-                            builder.Append(string.Format(" Last : {0}", previousFireTime.Value.LocalDateTime));
-                        }
-
-                        builder.AppendLine();
-                    }
-                }
-            }
-
-            builder.AppendLine().AppendLine();
-
-            return builder.ToString();
         }
     }
 

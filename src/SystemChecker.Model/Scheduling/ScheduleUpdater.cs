@@ -35,7 +35,7 @@ namespace SystemChecker.Model.Scheduling
 
             if (trigger.PerformCatchUp)
             {
-                var lastRun = resultsRepo.GetLastRun(check.CheckId);
+                var lastRun = resultsRepo.GetLastRunByCheckId(check.CheckId);
                 var startAt = lastRun == null
                     ? new DateTimeOffset(DateTime.Now)
                     : new DateTimeOffset(lastRun.CheckDTS);
@@ -51,7 +51,7 @@ namespace SystemChecker.Model.Scheduling
         public void UpdateTriggers(ICheckTriggerRepository triggerRepository, ICheckResultRepository resultsRepo, IScheduler sched, CheckToPerform check, IJobDetail job)
         {
             var logger = sched.Context["Logger"] as ILogger;
-            var triggers = triggerRepository.GetWhere(new { CheckId = check.CheckId, Disabled = (DateTime?)null });
+            var triggers = triggerRepository.GetEnabledTriggersForCheckId(check.CheckId);
 
             var newTriggers = triggers.Where(x => !CheckTriggers.Any(y => y.CheckId == check.CheckId && y.TriggerId == x.TriggerId)).ToList();
             var removedTriggers = CheckTriggers.Where(x => x.CheckId == check.CheckId && !triggers.Any(y => y.TriggerId == x.TriggerId)).ToList();
@@ -118,7 +118,7 @@ namespace SystemChecker.Model.Scheduling
             var resultsRepo = repoFactory.GetCheckResultRepository();
 
             // WHADDYA' GOT
-            var checkList = checkToPerformRepo.GetWhere(new { Disabled = (DateTime?)null });
+            var checkList = checkToPerformRepo.GetEnabledChecks();
 
             var newChecks = checkList.Where(x => !ChecksToPerform.Any(y => y.CheckId == x.CheckId)).ToList();
             var removedChecks = ChecksToPerform.Where(x => !checkList.Any(y => y.CheckId == x.CheckId)).ToList();
