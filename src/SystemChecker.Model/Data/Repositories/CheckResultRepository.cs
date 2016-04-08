@@ -12,8 +12,8 @@ namespace SystemChecker.Model.Data.Repositories
                  connection,
                  "tblCheckResult",
                 "CheckResultId",
-                "CheckId, CheckDTS, Result, LoggedRunId, LoggedRunDTS, RecordsAffected, DurationMS, FailureDetail, RunData",
-                "@CheckId, @CheckDTS, @Result, @LoggedRunId, @LoggedRunDTS, @RecordsAffected, @DurationMS, @FailureDetail, @RunData"
+                "CheckId, CheckDTS, Result, DurationMS, FailureDetail, RunData",
+                "@CheckId, @CheckDTS, @Result, @DurationMS, @FailureDetail, @RunData"
                  )
         { }
 
