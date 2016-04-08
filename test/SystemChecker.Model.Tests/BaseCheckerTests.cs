@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SystemChecker.Model.Checkers;
 using SystemChecker.Model.Data;
-using SystemChecker.Model.Data.Repositories;
+using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.QueryBuilder;

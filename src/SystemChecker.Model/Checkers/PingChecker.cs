@@ -4,7 +4,7 @@ using SystemChecker.Model.Enums;
 using SystemChecker.Model.Data;
 using System.Net.NetworkInformation;
 using System;
-using SystemChecker.Model.Data.Repositories;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Model.Checkers
 {

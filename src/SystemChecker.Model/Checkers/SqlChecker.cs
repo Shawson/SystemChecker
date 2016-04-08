@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Model.Checkers
 {

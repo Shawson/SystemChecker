@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using System.Data.SqlClient;
+using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Data.Repositories;
 
 namespace SystemChecker.Web

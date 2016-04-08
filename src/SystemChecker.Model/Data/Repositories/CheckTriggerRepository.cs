@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using SystemChecker.Model.Data.Interfaces;
 
 namespace SystemChecker.Model.Data.Repositories
 {
-    public interface ICheckTriggerRepository : IBaseRepository<CheckTrigger> {
-        List<CheckTrigger> GetEnabledTriggersForCheckId(int checkId);
-    }
-
     public class CheckTriggerRepository: BaseRepository<CheckTrigger>, ICheckTriggerRepository
     {
         public CheckTriggerRepository(IDbConnection connection)
