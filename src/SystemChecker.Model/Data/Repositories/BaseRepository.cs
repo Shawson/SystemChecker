@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SystemChecker.Model.Data.Repositories
@@ -28,7 +29,42 @@ namespace SystemChecker.Model.Data.Repositories
             ColumnParametersForInsert = nonPrimaryKeyColumnParameters;
 
             Columns = $"{PrimaryKey}, {nonPrimaryKeyColumns}";
-            ColumnParameters = $"@{PrimaryKey}, {nonPrimaryKeyColumnParameters}"; ;
+            ColumnParameters = $"@{PrimaryKey}, {nonPrimaryKeyColumnParameters}";
+
+            // figure out the primary keys
+            Type type = typeof(TEntity);
+            PropertyInfo[] properties = type.GetProperties();
+
+            //type.GetCustomAttribute(typeof(TableAttribute)); // find the table name 
+
+            var primaryKeys = new List<string>();
+            var columns = new List<string>();
+
+            foreach (PropertyInfo property in properties)
+            {
+                var attributes = property
+                    .GetCustomAttributes(false)
+                    .Select(a => a.GetType().Name)
+                    .ToString();
+
+                if (!attributes.Contains("NotMapped"))
+                {
+                    if (attributes.Contains("Key"))
+                    {
+                        primaryKeys.Add(property.Name);
+                    }
+                    else
+                    {
+                        columns.Add(property.Name);
+                    }
+                }
+                //Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(obj, null));
+
+            }
+
+            PrimaryKey = string.Join(",", primaryKeys.ToArray());
+            ColumnsForInsert = string.Join(",", columns.ToArray());
+            ColumnParametersForInsert = string.Join(",", columns.Select(x => "@" + x).ToArray());
         }
 
         public List<TEntity> GetAll()
