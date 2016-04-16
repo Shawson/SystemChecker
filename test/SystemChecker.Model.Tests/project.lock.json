@@ -329,7 +329,10 @@
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
           "Quartz": "2.3.3"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ]
       },
       "xunit/2.1.0": {
         "type": "package",
@@ -768,7 +771,10 @@
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
           "Quartz": "2.3.3"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ]
       },
       "xunit/2.1.0": {
         "type": "package",
@@ -1207,7 +1213,10 @@
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
           "Quartz": "2.3.3"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations"
+        ]
       },
       "xunit/2.1.0": {
         "type": "package",

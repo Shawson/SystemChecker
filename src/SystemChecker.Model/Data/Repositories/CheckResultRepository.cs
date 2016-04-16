@@ -8,6 +8,9 @@ namespace SystemChecker.Model.Data.Repositories
     public class CheckResultRepository: BaseRepository<CheckResult>, ICheckResultRepository
     {
         public CheckResultRepository(IDbConnection connection)
+<<<<<<< HEAD
+            : base(connection)
+=======
             : base(
                  connection,
                  "tblCheckResult",
@@ -15,6 +18,7 @@ namespace SystemChecker.Model.Data.Repositories
                 "CheckId, CheckDTS, Result, DurationMS, FailureDetail, RunData",
                 "@CheckId, @CheckDTS, @Result, @DurationMS, @FailureDetail, @RunData"
                  )
+>>>>>>> master
         { }
 
         public CheckResult GetLastRunByCheckId(int id)
