@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SystemChecker.Model.Data
 {
+    [Table("tblChecksToPerform")]
     public class CheckToPerform
     {
+        [Key]
         public int CheckId { get; set; }
         public int CheckTypeId { get; set; }
         public string SystemName { get; set; }
