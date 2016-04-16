@@ -9,13 +9,7 @@ namespace SystemChecker.Model.Data.Repositories
     public class CheckToPerformRepository : BaseRepository<CheckToPerform>, ICheckToPerformRepository
     {
         public CheckToPerformRepository(IDbConnection connection)
-            : base(
-                 connection,
-                 "tblChecksToPerform",
-                "CheckId",
-                "CheckTypeId, SystemName, Settings, Outcomes, CheckSuiteId, Disabled, Updated",
-                "@CheckTypeId, @SystemName, @Settings, @Outcomes, @CheckSuiteId, @Disabled, @Updated"
-                 )
+            : base(connection)
         { }
         
         public List<CheckToPerform> GetEnabledChecks()

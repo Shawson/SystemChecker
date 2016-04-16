@@ -1,14 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Quartz;
-using Quartz.Impl.Matchers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using SystemChecker.Model.Checkers.Serialisation;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
-using SystemChecker.Model.Data.Repositories;
 using SystemChecker.Model.Helpers;
 
 namespace SystemChecker.Model.Scheduling
@@ -19,7 +15,8 @@ namespace SystemChecker.Model.Scheduling
         public static List<CheckTrigger> CheckTriggers = new List<CheckTrigger>();
         public static bool Running = false;
         public int CheckToPerformId { get; set; }
-        public ITrigger GetTriggerFromCron(CheckToPerform check, CheckTrigger trigger, IJobDetail job, DateTimeOffset startAt)
+
+        public ITrigger BuildTrigger(CheckToPerform check, CheckTrigger trigger, IJobDetail job, DateTimeOffset startAt)
         {
             return TriggerBuilder.Create()
                 .WithIdentity($"Trigger {check.SystemName}", $"Check {check.CheckId}")
@@ -29,6 +26,7 @@ namespace SystemChecker.Model.Scheduling
                 .ForJob(job)
                 .Build();
         }
+
         public ITrigger GetTrigger(ICheckResultRepository resultsRepo, CheckToPerform check, CheckTrigger trigger, IJobDetail job)
         {
             ITrigger qTrigger;
@@ -40,14 +38,15 @@ namespace SystemChecker.Model.Scheduling
                     ? new DateTimeOffset(DateTime.Now)
                     : new DateTimeOffset(lastRun.CheckDTS);
 
-                qTrigger = GetTriggerFromCron(check, trigger, job, startAt);
+                qTrigger = BuildTrigger(check, trigger, job, startAt);
             }
             else
             {
-                qTrigger = GetTriggerFromCron(check, trigger, job, new DateTimeOffset(DateTime.Now));
+                qTrigger = BuildTrigger(check, trigger, job, new DateTimeOffset(DateTime.Now));
             }
             return qTrigger;
         }
+
         public void UpdateTriggers(ICheckTriggerRepository triggerRepository, ICheckResultRepository resultsRepo, IScheduler sched, CheckToPerform check, IJobDetail job)
         {
             var logger = sched.Context["Logger"] as ILogger;
@@ -187,6 +186,7 @@ namespace SystemChecker.Model.Scheduling
             if (!Running)
             {
                 Running = true;
+
                 try
                 {
                     UpdateJobs(context);
@@ -196,14 +196,13 @@ namespace SystemChecker.Model.Scheduling
                     JobExecutionException e2 =
                         new JobExecutionException(e);
 
-                    //e2.RefireImmediately(); // this job will refire immediately
-                    //e2.UnscheduleAllTriggers(); // stop future runs
-
-                    Running = false;
-
                     throw e2;
                 }
-                Running = false;
+                finally
+                {
+                    Running = false;
+                }
+                
             }
             else
             {

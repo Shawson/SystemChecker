@@ -51,10 +51,13 @@ namespace SystemChecker.Model
                     .Build();
 
             sched.ScheduleJob(updatejob, updateTrigger);
+
             sched.Start();
+            logger.LogInformation($"Scheduler started");
+
             sched.TriggerJob(updatejob.Key);
 
-            logger.LogInformation($"Scheduler started");
+            
 
             // todo: Add a signalR server which the web ui can connect to to request immediate re-runs of tests/ be notified of recent results
             //http://stackoverflow.com/questions/11140164/signalr-console-app-example
