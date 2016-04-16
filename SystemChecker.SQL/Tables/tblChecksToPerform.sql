@@ -7,5 +7,5 @@
 	[CheckTypeId] INT NOT NULL DEFAULT 0, 
     [CheckSuiteId] INT NULL, 
     [Disabled] DATETIME NULL,
-	[Updated] DATETIME NOT NULL
+	[Updated] DATETIME NOT NULL DEFAULT getdate()
 )
