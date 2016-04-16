@@ -9,13 +9,8 @@ namespace SystemChecker.Model.Data.Repositories
     public class CheckTriggerRepository: BaseRepository<CheckTrigger>, ICheckTriggerRepository
     {
         public CheckTriggerRepository(IDbConnection connection)
-            : base(
-                  connection,
-                 "tblCheckTrigger",
-                "TriggerId",
-                "CheckId, CronExpression, PerformCatchUp, Disabled, Updated",
-                "@CheckId, @CronExpression, @PerformCatchUp, @Disabled, @Updated"
-                  ) { }
+            : base(connection)
+        { }
 
         public List<CheckTrigger> GetEnabledTriggersForCheckId(int checkId)
         {

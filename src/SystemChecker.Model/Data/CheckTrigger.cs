@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SystemChecker.Model.Data
 {
+    [Table("tblCheckTrigger")]
     public class CheckTrigger
     {
+        [Key]
         public int TriggerId { get; set; }
         public int CheckId { get; set; }
 

@@ -28,6 +28,7 @@ namespace SystemChecker.Model.Data
         public DateTime? Disabled { get; set; }
         public DateTime Updated { get; set; }
 
+        [NotMapped]
         public IEnumerable<CheckTrigger> Triggers { get; set; }
     }
 }
