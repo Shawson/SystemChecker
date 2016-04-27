@@ -32,6 +32,7 @@
     "wwwroot",
     "node_modules"
   ],
+
   "publishExclude": [
     "**.user",
     "**.vspscc"

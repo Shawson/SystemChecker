@@ -6,13 +6,14 @@ using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.QueryBuilder;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace SystemChecker.Model.Tests
 {
     public class TestChecker : BaseChecker<string>, ISystemCheck
     {
-        public CheckResult PerformCheck(ICheckResultRepository resultsRepo)
+        public CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
             var result = PassStatus(null, resultsRepo);
 
@@ -46,7 +47,7 @@ namespace SystemChecker.Model.Tests
                 }
             };
 
-            Assert.Equal(checker.PerformCheck(Substitute.For<ICheckResultRepository>()).Result, (int)SuccessStatus.Success);
+            Assert.Equal(checker.PerformCheck(Substitute.For<ICheckResultRepository>(), Substitute.For<ILogger>()).Result, (int)SuccessStatus.Success);
         }
 
         [Fact]
@@ -105,7 +106,7 @@ namespace SystemChecker.Model.Tests
                 }
             };
 
-            Assert.Equal(checker.PerformCheck(Substitute.For<ICheckResultRepository>()).Result, (int)SuccessStatus.SuccessWithWarnings);
+            Assert.Equal(checker.PerformCheck(Substitute.For<ICheckResultRepository>(), Substitute.For<ILogger>()).Result, (int)SuccessStatus.SuccessWithWarnings);
         }
     }
 }

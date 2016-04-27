@@ -5,13 +5,16 @@ using SystemChecker.Model.Data;
 using System.Net.NetworkInformation;
 using System;
 using SystemChecker.Model.Data.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model.Checkers
 {
     public class PingChecker : BaseChecker<PingCheckerSettings>, ISystemCheck
     {
-        public CheckResult PerformCheck(ICheckResultRepository resultsRepo)
+        public CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
+            logger.LogDebug($"Starting PingChecker- CheckId {this.CheckToPerformId}");
+
             using (var pingSender = new Ping())
             { 
                 var options = new PingOptions();
@@ -44,6 +47,8 @@ namespace SystemChecker.Model.Checkers
                 }
                 catch (PingException pex)
                 {
+                    logger.LogDebug($"PingException : {pex}");
+
                     return new CheckResult
                     {
                         FailureDetail = pex.InnerException?.Message ?? pex.Message,
@@ -53,6 +58,8 @@ namespace SystemChecker.Model.Checkers
                 }
                 catch (Exception ex)
                 {
+                    logger.LogDebug($"Exception : {ex}");
+
                     return new CheckResult
                     {
                         FailureDetail = ex.Message,

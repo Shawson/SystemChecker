@@ -11,6 +11,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using SystemChecker.Model.Data.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model.Checkers
 {
@@ -37,8 +38,10 @@ namespace SystemChecker.Model.Checkers
             return resultList;
         }
 
-        public virtual CheckResult PerformCheck(ICheckResultRepository resultsRepo)
+        public virtual CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
+            logger.LogDebug($"Starting SqlChecker- CheckId {this.CheckToPerformId}");
+
             // get the last check results for comparison
             var lastRun = GetLastRun(resultsRepo);
 
@@ -63,6 +66,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (SqlException seqlex)
             {
+                logger.LogDebug($"SqlException : {seqlex}");
+
                 var result = new CheckResult
                 {
                     CheckDTS = DateTime.Now
@@ -83,6 +88,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (SocketException sktex)
             {
+                logger.LogDebug($"SocketException : {sktex}");
+
                 var result = new CheckResult
                 {
                     CheckDTS = DateTime.Now
@@ -94,6 +101,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (Exception ex)
             {
+                logger.LogDebug($"Exception : {ex}");
+
                 var result = new CheckResult
                 {
                     CheckDTS = DateTime.Now

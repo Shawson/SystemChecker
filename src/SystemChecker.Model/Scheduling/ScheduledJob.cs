@@ -5,6 +5,7 @@ using SystemChecker.Model.Checkers.Serialisation;
 using System.Diagnostics;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.Data.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model.Scheduling
 {
@@ -31,11 +32,13 @@ namespace SystemChecker.Model.Scheduling
                     _checker = CheckUnpacker.Unpack(check, repoFactory);
                 }
 
+                var logger = context.Scheduler.Context["Logger"] as ILogger;
+
                 var stopWatch = new Stopwatch();
 
                 var startTime = DateTime.Now;
                 stopWatch.Start();
-                var result = _checker.PerformCheck(_checkResultRepo);
+                var result = _checker.PerformCheck(_checkResultRepo, logger);
                 stopWatch.Stop();
                 
                 result.DurationMS = (int)stopWatch.ElapsedMilliseconds;

@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SystemChecker.Model.EmailCheckers Class Library",
+  "authors": [ "Shaw.Young" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": { }
+  },
+
+  "dependencies": {
+    "S22.Imap": "3.6.0"
+  }
+}

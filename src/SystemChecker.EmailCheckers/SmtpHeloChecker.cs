@@ -2,12 +2,14 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using SystemChecker.Model.Checkers;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace SystemChecker.Model.Checkers
+namespace SystemChecker.EmailCheckers
 {
     public class SMTPHeloCheckerSettings
     {
@@ -18,8 +20,10 @@ namespace SystemChecker.Model.Checkers
     public class SmtpHeloChecker : BaseChecker<SMTPHeloCheckerSettings>, ISystemCheck
     {
 
-        public CheckResult PerformCheck(ICheckResultRepository resultsRepo)
+        public CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
+            logger.LogDebug($"Starting SmtpHeloChecker- CheckId {this.CheckToPerformId}");
+
             var connectionResponseCode = -1;
             var heloResponseCode = -1;
 
@@ -56,6 +60,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (Exception ex)
              {
+                logger.LogDebug($"Exception : {ex}");
+
                 return new CheckResult
                 {
                     FailureDetail = ex.Message,

@@ -7,13 +7,16 @@ using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model.Checkers
 {
     public class HttpChecker : BaseChecker<HttpCheckerSettings>, ISystemCheck
     {
-        public CheckResult PerformCheck(ICheckResultRepository resultsRepo)
+        public CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
+            logger.LogDebug($"Starting HttpChecker- CheckId {this.CheckToPerformId}");
+
             var request = (HttpWebRequest)WebRequest.Create(Settings.Url);
 
             request.Timeout = Settings.FailureResponseTimeoutMS;
@@ -41,6 +44,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (WebException wex)
             {
+                logger.LogDebug($"WebException : {wex}");
+
                 if (wex.Message.Contains("The operation has timed out"))
                 {
                     return new CheckResult
@@ -56,6 +61,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch (Exception ex)
             {
+                logger.LogDebug($"Exception : {ex}");
+
                 return new CheckResult
                 {
                     FailureDetail = ex.ToString(),
@@ -106,6 +113,8 @@ namespace SystemChecker.Model.Checkers
             }
             catch(Exception ex)
             {
+                logger.LogDebug($"Exception : {ex}");
+
                 return new CheckResult
                 {
                     FailureDetail = ex.ToString(),

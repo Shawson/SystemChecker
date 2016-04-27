@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
     "Topshelf": "3.3.1",
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+    "SystemChecker.EmailCheckers": "1.0.0-*"
   },
 
   "commands": {

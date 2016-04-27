@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SystemChecker.EmailCheckers Class Library",
+  "authors": [ "Shaw.Young" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "dnx451": { }
+  },
+
+  "dependencies": {
+    "MailKit" :  "1.2.21", 
+    "SystemChecker.Model": "1.0.0-*"
+  }
+}
