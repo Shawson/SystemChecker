@@ -317,6 +317,73 @@
           "lib/net40/Quartz.dll": {}
         }
       },
+      "Roslyn.Compilers/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Compilers.VisualBasic": "1.2.20906.2"
+        }
+      },
+      "Roslyn.Compilers.Common/1.2.20906.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        }
+      },
+      "Roslyn.Compilers.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        }
+      },
+      "Roslyn.Compilers.VisualBasic/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        }
+      },
+      "Roslyn.Services.Common/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        }
+      },
+      "Roslyn.Services.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        }
+      },
       "SystemChecker.Model/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -328,10 +395,16 @@
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
-          "Quartz": "2.3.3"
+          "Quartz": "2.3.3",
+          "Roslyn.Compilers": "1.2.20906.2",
+          "Roslyn.Compilers.Common": "1.2.20906.2",
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2",
+          "Roslyn.Services.CSharp": "1.2.20906.2"
         },
         "frameworkAssemblies": [
-          "System.ComponentModel.DataAnnotations"
+          "System.ComponentModel.DataAnnotations",
+          "System.Runtime"
         ]
       },
       "xunit/2.1.0": {
@@ -759,6 +832,73 @@
           "lib/net40/Quartz.dll": {}
         }
       },
+      "Roslyn.Compilers/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Compilers.VisualBasic": "1.2.20906.2"
+        }
+      },
+      "Roslyn.Compilers.Common/1.2.20906.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        }
+      },
+      "Roslyn.Compilers.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        }
+      },
+      "Roslyn.Compilers.VisualBasic/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        }
+      },
+      "Roslyn.Services.Common/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        }
+      },
+      "Roslyn.Services.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        }
+      },
       "SystemChecker.Model/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -770,10 +910,16 @@
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
-          "Quartz": "2.3.3"
+          "Quartz": "2.3.3",
+          "Roslyn.Compilers": "1.2.20906.2",
+          "Roslyn.Compilers.Common": "1.2.20906.2",
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2",
+          "Roslyn.Services.CSharp": "1.2.20906.2"
         },
         "frameworkAssemblies": [
-          "System.ComponentModel.DataAnnotations"
+          "System.ComponentModel.DataAnnotations",
+          "System.Runtime"
         ]
       },
       "xunit/2.1.0": {
@@ -1201,6 +1347,73 @@
           "lib/net40/Quartz.dll": {}
         }
       },
+      "Roslyn.Compilers/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Compilers.VisualBasic": "1.2.20906.2"
+        }
+      },
+      "Roslyn.Compilers.Common/1.2.20906.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.dll": {}
+        }
+      },
+      "Roslyn.Compilers.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.CSharp.dll": {}
+        }
+      },
+      "Roslyn.Compilers.VisualBasic/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Compilers.VisualBasic.dll": {}
+        }
+      },
+      "Roslyn.Services.Common/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.dll": {},
+          "lib/net45/Roslyn.Utilities.dll": {}
+        }
+      },
+      "Roslyn.Services.CSharp/1.2.20906.2": {
+        "type": "package",
+        "dependencies": {
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2"
+        },
+        "compile": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Roslyn.Services.CSharp.dll": {}
+        }
+      },
       "SystemChecker.Model/1.0.0": {
         "type": "project",
         "framework": "DNX,Version=v4.5.1",
@@ -1212,10 +1425,16 @@
           "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
           "Newtonsoft.Json": "8.0.2",
-          "Quartz": "2.3.3"
+          "Quartz": "2.3.3",
+          "Roslyn.Compilers": "1.2.20906.2",
+          "Roslyn.Compilers.Common": "1.2.20906.2",
+          "Roslyn.Compilers.CSharp": "1.2.20906.2",
+          "Roslyn.Services.Common": "1.2.20906.2",
+          "Roslyn.Services.CSharp": "1.2.20906.2"
         },
         "frameworkAssemblies": [
-          "System.ComponentModel.DataAnnotations"
+          "System.ComponentModel.DataAnnotations",
+          "System.Runtime"
         ]
       },
       "xunit/2.1.0": {
@@ -1663,6 +1882,72 @@
         "Quartz.2.3.3.nupkg",
         "Quartz.2.3.3.nupkg.sha512",
         "Quartz.nuspec"
+      ]
+    },
+    "Roslyn.Compilers/1.2.20906.2": {
+      "type": "package",
+      "sha512": "r4ibaN66puK2tlefdrbQ5qDPVL+wCz6teuPLq0Xys6mi0dxSWJz/9j+40dchTQxMgWD6Bcnuh42lxC3zEtyVHg==",
+      "files": [
+        "Roslyn.Compilers.1.2.20906.2.nupkg",
+        "Roslyn.Compilers.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Compilers.nuspec"
+      ]
+    },
+    "Roslyn.Compilers.Common/1.2.20906.2": {
+      "type": "package",
+      "sha512": "cNYHZyvkHLNo2WjaB5MsSowDhkhtNid/uH3ao9lJyihgCYcbUv+daXJ3sjY3cev3gpTRO9+PzuC3JFUCzKNJVA==",
+      "files": [
+        "lib/net45/Roslyn.Compilers.dll",
+        "lib/net45/Roslyn.Compilers.xml",
+        "Roslyn.Compilers.Common.1.2.20906.2.nupkg",
+        "Roslyn.Compilers.Common.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Compilers.Common.nuspec"
+      ]
+    },
+    "Roslyn.Compilers.CSharp/1.2.20906.2": {
+      "type": "package",
+      "sha512": "UglJuClElMjP8rWJtne6FJ+T83D7EGwFKxvHnBV6gJOsylZZLYpXQ5eUglHPEYb+qIsx3JAjgc+A4OrgNxD49Q==",
+      "files": [
+        "lib/net45/Roslyn.Compilers.CSharp.dll",
+        "lib/net45/Roslyn.Compilers.CSharp.xml",
+        "Roslyn.Compilers.CSharp.1.2.20906.2.nupkg",
+        "Roslyn.Compilers.CSharp.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Compilers.CSharp.nuspec"
+      ]
+    },
+    "Roslyn.Compilers.VisualBasic/1.2.20906.2": {
+      "type": "package",
+      "sha512": "s2L06abKNXGB210R+62Zz7eYyRQYiGhZxKYV6Xg0jx14UxwSRk+SI2rM1qYiWoNtC/gDFfhFA3p0o8+OK8dXPw==",
+      "files": [
+        "lib/net45/Roslyn.Compilers.VisualBasic.dll",
+        "lib/net45/Roslyn.Compilers.VisualBasic.xml",
+        "Roslyn.Compilers.VisualBasic.1.2.20906.2.nupkg",
+        "Roslyn.Compilers.VisualBasic.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Compilers.VisualBasic.nuspec"
+      ]
+    },
+    "Roslyn.Services.Common/1.2.20906.2": {
+      "type": "package",
+      "sha512": "E5QMlb70xzGg2lejjHMBQvklnhMCjUMtcPzlTpV+VUyC2A1XgC7GRwIa3nnb17jQuZ3QLRDH6Kr2kYWErBROVg==",
+      "files": [
+        "lib/net45/Roslyn.Services.dll",
+        "lib/net45/Roslyn.Services.xml",
+        "lib/net45/Roslyn.Utilities.dll",
+        "lib/net45/Roslyn.Utilities.xml",
+        "Roslyn.Services.Common.1.2.20906.2.nupkg",
+        "Roslyn.Services.Common.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Services.Common.nuspec"
+      ]
+    },
+    "Roslyn.Services.CSharp/1.2.20906.2": {
+      "type": "package",
+      "sha512": "YDXai4t2MVYQBg6uJH+Wt97GJK19q1oE/e9x5DppuZdrmuDsvRM/q0XSbxNppwk6fKQh4b8iHQIY+hThyW2p/Q==",
+      "files": [
+        "lib/net45/Roslyn.Services.CSharp.dll",
+        "lib/net45/Roslyn.Services.CSharp.xml",
+        "Roslyn.Services.CSharp.1.2.20906.2.nupkg",
+        "Roslyn.Services.CSharp.1.2.20906.2.nupkg.sha512",
+        "Roslyn.Services.CSharp.nuspec"
       ]
     },
     "xunit/2.1.0": {

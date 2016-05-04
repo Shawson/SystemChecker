@@ -20,6 +20,7 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
     "NSubstitute": "1.9.2",
     "SystemChecker.EmailCheckers": "1.0.0-*",
+    "SystemChecker.FileSystem": "1.0.0-*",
     "Microsoft.Extensions.Logging": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final"
   },

@@ -1,0 +1,29 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SystemChecker.FileSystem Class Library",
+  "authors": [ "Shaw.Young" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+    "frameworks": {
+    "dnx451": {
+      "dependencies": {
+      },
+      "frameworkAssemblies": {
+        "System.Runtime": "4.0.0"
+      }
+    }
+  },
+
+  "dependencies": {
+
+    "SystemChecker.Model": "1.0.0-*",
+
+    "Roslyn.Compilers": "1.2.20906.2",
+    "Roslyn.Compilers.Common": "1.2.20906.2",
+    "Roslyn.Compilers.CSharp": "1.2.20906.2",
+    "Roslyn.Services.Common": "1.2.20906.2",
+    "Roslyn.Services.CSharp": "1.2.20906.2"
+  }
+}

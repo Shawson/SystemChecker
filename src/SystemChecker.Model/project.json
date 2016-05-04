@@ -10,7 +10,8 @@
       "dependencies": {
       },
       "frameworkAssemblies": {
-        "System.ComponentModel.DataAnnotations": "4.0.0.0"
+        "System.ComponentModel.DataAnnotations": "4.0.0.0",
+        "System.Runtime":"4.0.0"
       }
     }
   },
@@ -22,6 +23,12 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc1-final",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
+    "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+    
+    "Roslyn.Compilers" : "1.2.20906.2",
+    "Roslyn.Compilers.Common" : "1.2.20906.2",
+    "Roslyn.Compilers.CSharp": "1.2.20906.2",
+    "Roslyn.Services.Common": "1.2.20906.2",
+    "Roslyn.Services.CSharp": "1.2.20906.2"
   }
 }

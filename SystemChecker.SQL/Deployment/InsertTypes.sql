@@ -7,6 +7,7 @@ UNION SELECT 2, 'SystemChecker.Model',			'SystemChecker.Model.Checkers.HttpCheck
 UNION SELECT 3, 'SystemChecker.Model',			'SystemChecker.Model.Checkers.PingChecker',				'ICMP Ping Response Check'
 UNION SELECT 4, 'SystemChecker.EmailCheckers',	'SystemChecker.EmailCheckers.SmtpHeloChecker',			'SMTP HELO Response Check'
 UNION SELECT 5, 'SystemChecker.EmailCheckers',	'SystemChecker.EmailCheckers.EmailRoundtripChecker',	'Email Roundtrip Check'
+UNION SELECT 6, 'SystemChecker.FileSystem',		'SystemChecker.FileSystem.FileExistsChecker',			'Check for existence of a file'
 GO
 
 SET IDENTITY_INSERT tblCheckType OFF
