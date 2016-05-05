@@ -24,6 +24,7 @@ namespace SystemChecker.FileSystem
             logger.LogDebug($"Starting FileExistsChecker- CheckId {this.CheckToPerformId}");
 
             var found = false;
+            DateTime? lastWriteTime = null;
 
             // use roslyn to figure evaluate the filename
             var engine = new ScriptEngine();
@@ -38,8 +39,6 @@ namespace SystemChecker.FileSystem
 
             var timer = new Stopwatch();
             timer.Start();
-
-            Console.WriteLine(pathToFile);
 
             if (Settings.UseSpecificAccount)
             {
@@ -59,6 +58,9 @@ namespace SystemChecker.FileSystem
                 if (File.Exists(pathToFile))
                 {
                     found = true;
+
+                    FileInfo fi = new FileInfo(pathToFile);
+                    lastWriteTime = fi.LastWriteTime;
                 }
             }
             
@@ -67,7 +69,8 @@ namespace SystemChecker.FileSystem
             var runData = new
             {
                 FileFound = found,
-                FileName = ""
+                PathToFile = pathToFile,
+                LastModified = lastWriteTime
             };
 
             var result = PassStatus(runData, resultsRepo);

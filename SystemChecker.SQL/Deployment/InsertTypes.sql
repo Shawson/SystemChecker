@@ -1,7 +1,7 @@
 ﻿SET IDENTITY_INSERT tblCheckType ON
 GO
 
-insert into tblCheckType (CheckTypeId, CheckAssembly, CheckType, DisplayName)
+insert into tblCheckType (CheckTypeId, CheckAssembly, CheckTypeName, DisplayName)
 	  SELECT 1, 'SystemChecker.Model',			'SystemChecker.Model.Checkers.SqlChecker',				'SQL Query Check'
 UNION SELECT 2, 'SystemChecker.Model',			'SystemChecker.Model.Checkers.HttpChecker',				'HTTP Response Check'
 UNION SELECT 3, 'SystemChecker.Model',			'SystemChecker.Model.Checkers.PingChecker',				'ICMP Ping Response Check'
