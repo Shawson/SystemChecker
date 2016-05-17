@@ -84,9 +84,7 @@ This is done in sql- there are a couple of examples you can see in SQLChecker.SQ
 
 ## Other libraries used
 
-Scheulding uses the Quartz C# library.
+ * Scheulding uses the Quartz C# library.
 
-The data layer uses Dapper as it's more light weight and thread safe, unlike entity framework.  I used a generic repository & sql generator written by Diego Garcia to save cluttering the code with sql.
-https://github.com/Yoinbol/Dapper.DataRepositories
-https://github.com/Yoinbol/MicroOrm.Pocos.SqlGenerator
+ * Data layer uses Dapper as it's more light weight and thread safe, unlike entity framework.  
 
