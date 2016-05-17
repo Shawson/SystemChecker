@@ -74,7 +74,6 @@ namespace SystemChecker.EmailCheckers
 
             var thisRun = new
             {
-                FirstRun = lastRun == null,
                 TestEMailToken = testEmailToken,
                 LastEmailReceived = lastEmailReceived.HasValue,
                 LastEmailDeliveryTime = lastEmailReceived ?? 0
