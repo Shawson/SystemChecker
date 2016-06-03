@@ -37,6 +37,7 @@ namespace SystemChecker.Model.Checkers
                         ? null 
                         : JObject.Parse(lastRun.RunData);
 
+            thisRunData.FirstRun = lastRun == null;
             var runResult = new JObject();
             runResult.Add("ThisRun", thisRunData);
             runResult.Add("LastRun", lastRunData);
