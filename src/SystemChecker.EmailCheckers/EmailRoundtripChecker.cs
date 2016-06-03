@@ -49,7 +49,7 @@ namespace SystemChecker.EmailCheckers
 
             var lastEmailReceived = (double?)null;
 
-            if (lastRun != null)
+            if (!string.IsNullOrWhiteSpace(lastRun?.RunData))
             {
                 try
                 {
