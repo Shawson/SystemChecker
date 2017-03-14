@@ -26,7 +26,7 @@ namespace SystemChecker.Model.Checkers
         /// </summary>
         /// <param name="thisRunData">A dynamic object which holds result data of the current run</param>
         /// <returns></returns>
-        protected Outcome PassStatus(dynamic thisRun, ICheckResultRepository repo)
+        protected Outcome PassStatus(object thisRun, ICheckResultRepository repo)
         {
             var thisRunData = JObject.FromObject(thisRun);
 
@@ -37,7 +37,7 @@ namespace SystemChecker.Model.Checkers
                         ? null 
                         : JObject.Parse(lastRun.RunData);
 
-            thisRunData.FirstRun = lastRun == null;
+            thisRunData["FirstRun"] = lastRun == null;
             var runResult = new JObject();
             runResult.Add("ThisRun", thisRunData);
             runResult.Add("LastRun", lastRunData);
