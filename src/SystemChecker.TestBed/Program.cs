@@ -36,11 +36,11 @@ namespace SystemChecker.TestBed
 
                 var repoFactory = new DapperRepositoryFactory(connectionString);
 
-                //RunTest(repoFactory, config, logger);
+                RunTest(repoFactory, config, logger);
 
                 //TestEmailRoundtrip(repoFactory, logger);
 
-                TestFileExistsChecker(repoFactory, logger);
+               // TestFileExistsChecker(repoFactory, logger);
             }
             catch (Exception ex)
             {

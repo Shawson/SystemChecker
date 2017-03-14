@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Runtime;
-using System.Data;
 
 namespace SystemChecker.Model.Data.Repositories
 {

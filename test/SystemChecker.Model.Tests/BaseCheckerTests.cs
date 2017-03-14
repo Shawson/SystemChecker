@@ -6,8 +6,8 @@ using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Enums;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.QueryBuilder;
-using Microsoft.Extensions.Logging;
 using Xunit;
+using Microsoft.Extensions.Logging;
 
 namespace SystemChecker.Model.Tests
 {

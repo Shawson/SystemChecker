@@ -1,34 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68F1D712-A837-4D77-B185-E2CC4EA4E421}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4581074C-C500-4B75-A005-ECE00E56D74D}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.Console", "src\SystemChecker.Console\SystemChecker.Console.xproj", "{68BE38F3-F98F-457E-8621-93647BF03E60}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.Model", "src\SystemChecker.Model\SystemChecker.Model.xproj", "{FC8C0392-F2CE-4B13-9A2E-2FA20546599A}"
-EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SystemChecker.SQL", "SystemChecker.SQL\SystemChecker.SQL.sqlproj", "{16B01594-EDBE-4E5D-8EFD-FD6F12C92973}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.Web", "src\SystemChecker.Web\SystemChecker.Web.xproj", "{0648E9E9-A230-4455-BDA5-96AAE6783F69}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A0B29D21-25A3-4393-B7EF-BCCC23806B4C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.Model.Tests", "test\SystemChecker.Model.Tests\SystemChecker.Model.Tests.xproj", "{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.Console", "src\SystemChecker.Console\SystemChecker.Console.csproj", "{68BE38F3-F98F-457E-8621-93647BF03E60}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.TestBed", "src\SystemChecker.TestBed\SystemChecker.TestBed.xproj", "{276A2C6B-C4FD-4F46-AC14-9FAB4E616CAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.Model", "src\SystemChecker.Model\SystemChecker.Model.csproj", "{FC8C0392-F2CE-4B13-9A2E-2FA20546599A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.EmailCheckers", "src\SystemChecker.EmailCheckers\SystemChecker.EmailCheckers.xproj", "{23E01237-A1CB-4EAB-A672-877AE4F397EC}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SystemChecker.SQL", "SystemChecker.SQL\SystemChecker.SQL.sqlproj", "{16B01594-EDBE-4E5D-8EFD-FD6F12C92973}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.FileSystem", "src\SystemChecker.FileSystem\SystemChecker.FileSystem.xproj", "{D1551076-8050-43B9-A4CF-F307EF5E8202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.Model.Tests", "test\SystemChecker.Model.Tests\SystemChecker.Model.Tests.csproj", "{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SystemChecker.WebAdmin", "src\SystemChecker.WebAdmin\SystemChecker.WebAdmin.xproj", "{68F8731C-B958-45FA-B494-C2097003163E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.TestBed", "src\SystemChecker.TestBed\SystemChecker.TestBed.csproj", "{276A2C6B-C4FD-4F46-AC14-9FAB4E616CAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.EmailCheckers", "src\SystemChecker.EmailCheckers\SystemChecker.EmailCheckers.csproj", "{23E01237-A1CB-4EAB-A672-877AE4F397EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.FileSystem", "src\SystemChecker.FileSystem\SystemChecker.FileSystem.csproj", "{D1551076-8050-43B9-A4CF-F307EF5E8202}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.WebAdmin", "src\SystemChecker.WebAdmin\SystemChecker.WebAdmin.csproj", "{68F8731C-B958-45FA-B494-C2097003163E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +45,6 @@ Global
 		{16B01594-EDBE-4E5D-8EFD-FD6F12C92973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B01594-EDBE-4E5D-8EFD-FD6F12C92973}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16B01594-EDBE-4E5D-8EFD-FD6F12C92973}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{0648E9E9-A230-4455-BDA5-96AAE6783F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0648E9E9-A230-4455-BDA5-96AAE6783F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0648E9E9-A230-4455-BDA5-96AAE6783F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0648E9E9-A230-4455-BDA5-96AAE6783F69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,7 +72,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{68BE38F3-F98F-457E-8621-93647BF03E60} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 		{FC8C0392-F2CE-4B13-9A2E-2FA20546599A} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
-		{0648E9E9-A230-4455-BDA5-96AAE6783F69} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 		{9E9EB59F-BEE1-4ED5-9657-93AF9F1E6E69} = {A0B29D21-25A3-4393-B7EF-BCCC23806B4C}
 		{276A2C6B-C4FD-4F46-AC14-9FAB4E616CAA} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 		{23E01237-A1CB-4EAB-A672-877AE4F397EC} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}

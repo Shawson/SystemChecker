@@ -6,8 +6,6 @@ using SystemChecker.Model.Checkers;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Interfaces;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Logging;
 using NetworkConnection = SystemChecker.FileSystem.Network.NetworkConnection;
 
@@ -22,10 +20,12 @@ namespace SystemChecker.FileSystem
             var found = false;
             DateTime? lastWriteTime = null;
 
-            // https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
-            // use roslyn to figure evaluate the filename
-            var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
-                ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
+            //// https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
+            //// use roslyn to figure evaluate the filename
+            //var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
+            //    ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
+
+            var pathToFile = "yay";
 
             var timer = new Stopwatch();
             timer.Start();
