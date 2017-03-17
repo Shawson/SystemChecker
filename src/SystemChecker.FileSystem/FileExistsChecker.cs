@@ -8,6 +8,8 @@ using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Interfaces;
 using Microsoft.Extensions.Logging;
 using NetworkConnection = SystemChecker.FileSystem.Network.NetworkConnection;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace SystemChecker.FileSystem
 {
@@ -22,10 +24,8 @@ namespace SystemChecker.FileSystem
 
             //// https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
             //// use roslyn to figure evaluate the filename
-            //var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
-            //    ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
-
-            var pathToFile = "yay";
+            var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
+                ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
 
             var timer = new Stopwatch();
             timer.Start();

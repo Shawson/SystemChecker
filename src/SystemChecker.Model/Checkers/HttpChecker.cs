@@ -25,13 +25,10 @@ namespace SystemChecker.Model.Checkers
 
             try
             {
-                CredentialCache credentials = new CredentialCache();
-
+                ICredentials credentials = null;
                 if (Settings.AuthenticationEnabled)
                 {
-                    NetworkCredential netCredential = new NetworkCredential(Settings.AuthenticationUserName, Settings.AuthenticationPassword, Settings.AuthenticationDomain);
-
-                    credentials.Add(new Uri(Settings.Url), Settings.AuthenticationMode, netCredential);
+                    credentials = new NetworkCredential(Settings.AuthenticationUserName, Settings.AuthenticationPassword, Settings.AuthenticationDomain);
                 }
 
                 using (var handler = new HttpClientHandler { Credentials = credentials })
