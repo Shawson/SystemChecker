@@ -11,6 +11,8 @@ using MailKit.Security;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+
 namespace SystemChecker.EmailCheckers
 {
     public class EmailRoundtripCheckerSettings
@@ -52,7 +54,7 @@ namespace SystemChecker.EmailCheckers
                 {
                     var lastRunData = JObject.Parse(lastRun.RunData);
 
-                    lastEmailReceived = FetchTestMail(lastRunData["TestEMailToken"].Value<string>(), logger);
+                    lastEmailReceived = FetchTestMail(lastRunData["TestEMailToken"].Value<string>(), logger).Result;
                 }
                 catch (AuthenticationException ae)
                 {
@@ -67,7 +69,7 @@ namespace SystemChecker.EmailCheckers
             }
 
             var testToken = Math.Abs(Guid.NewGuid().GetHashCode()).ToString();
-            var testEmailToken = SendTestMail(testToken);
+            var testEmailToken = SendTestMail(testToken).Result;
 
             var thisRun = new
             {
@@ -86,7 +88,7 @@ namespace SystemChecker.EmailCheckers
             };
         }
 
-        private string SendTestMail(string testEmailToken)
+        private async Task<string> SendTestMail(string testEmailToken)
         {
             var emailMessage = new MimeMessage();
 
@@ -103,10 +105,13 @@ Please ignore and do not delete.
             {
                 client.LocalDomain = Settings.SMTPDomain;
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                client.Authenticate(Settings.SMTPUsername, Settings.SMTPPassword);
-                client.ConnectAsync(Settings.SMTPServer, Settings.SMTPPort, SecureSocketOptions.None).ConfigureAwait(false);
-                client.SendAsync(emailMessage).ConfigureAwait(false);
-                client.DisconnectAsync(true).ConfigureAwait(false);
+                await client.ConnectAsync(Settings.SMTPServer, Settings.SMTPPort, SecureSocketOptions.None);
+                if (Settings.SMTPUsername != null && Settings.SMTPPassword != null)
+                {
+                    await client.AuthenticateAsync(Settings.SMTPUsername, Settings.SMTPPassword);
+                }
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
             }
 
             emailMessage = null;
@@ -114,31 +119,31 @@ Please ignore and do not delete.
             return testEmailToken;
         }
 
-        private double? FetchTestMail(string testEmailToken, ILogger logger)
+        private async Task<double?> FetchTestMail(string testEmailToken, ILogger logger)
         {
             var emailDeliveryTiming = (double?)null;
 
             using (var client = new ImapClient())
             {
-                client.Connect(
+                await client.ConnectAsync(
                     Settings.IMAPServer,
                     Settings.IMAPPort,
                     Settings.IMAPUseSSL);
 
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                client.Authenticate(
+                await client.AuthenticateAsync(
                     Settings.IMAPUsername,
                     Settings.IMAPPassword);
 
                 // The Inbox folder is always available on all IMAP servers...
                 var inbox = client.Inbox;
-                inbox.Open(FolderAccess.ReadWrite);
+                await inbox.OpenAsync(FolderAccess.ReadWrite);
 
                 logger.LogDebug($"Connected to IMAP Mailbox - {inbox.Count} messages in inbox");
 
                 for (int i = 0; i < inbox.Count; i++)
                 {
-                    var message = inbox.GetMessage(i);
+                    var message = await inbox.GetMessageAsync(i);
 
                     logger.LogDebug($"Processing message {i}");
 
@@ -176,7 +181,7 @@ Please ignore and do not delete.
                             emailDeliveryTiming = -1;
                         }
                         
-                        inbox.AddFlags(new int[] {i}, MessageFlags.Deleted | MessageFlags.Seen, false);
+                        await inbox.AddFlagsAsync(new int[] {i}, MessageFlags.Deleted | MessageFlags.Seen, false);
                     }
                     else if 
                         (
@@ -186,7 +191,7 @@ Please ignore and do not delete.
                         // if it's from the system checker but another test email, probably an old one which took too long, then clean it up
                     {
                         logger.LogDebug("Old system checker message - marking for delete");
-                        inbox.AddFlags(new int[] { i }, MessageFlags.Deleted | MessageFlags.Seen, false);
+                        await inbox.AddFlagsAsync(new int[] { i }, MessageFlags.Deleted | MessageFlags.Seen, false);
                     }
                 }
 

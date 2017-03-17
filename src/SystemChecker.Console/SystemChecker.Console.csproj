@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.0.0-alpha2" />
   </ItemGroup>
 
   <ItemGroup>

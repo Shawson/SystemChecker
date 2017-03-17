@@ -31,12 +31,12 @@ namespace SystemChecker.TestBed
 
 
                 ILoggerFactory factory = new LoggerFactory();
-                factory.AddConsole(LogLevel.Debug);
+                factory.AddConsole(config.GetSection("Logging"));
                 var logger = factory.CreateLogger("SystemCheckerRunner");
 
                 var repoFactory = new DapperRepositoryFactory(connectionString);
 
-                RunTest(repoFactory, config, logger);
+                RunTest(20, repoFactory, config, logger);
 
                 //TestEmailRoundtrip(repoFactory, logger);
 
@@ -87,13 +87,12 @@ namespace SystemChecker.TestBed
         }
 
 
-        private static void RunTest(DapperRepositoryFactory repoFactory, IConfigurationRoot config, ILogger logger)
+        private static void RunTest(int checkId, DapperRepositoryFactory repoFactory, IConfigurationRoot config, ILogger logger)
         {
             var checkToPerformRepo = repoFactory.GetCheckToPerformRepository();
             var triggerRepository = repoFactory.GetCheckTriggerRepository();
 
-            // 14 & 15
-            var check = checkToPerformRepo.GetById(2);
+            var check = checkToPerformRepo.GetById(checkId);
 
             var scheduleRunner = new ScheduledCheckRunner()
             {
