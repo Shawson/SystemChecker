@@ -14,7 +14,7 @@
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
     <Version>1.0.0-dev</Version>
-	<RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+	<RuntimeIdentifiers>win10-x64,win81-x64,win8-x64,win7-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
