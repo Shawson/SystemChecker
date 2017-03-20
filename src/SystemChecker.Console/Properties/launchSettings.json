@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "SystemChecker.Console": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="DasMulli.Win32.ServiceUtils" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Quartz" Version="3.0.0-alpha2" />
     <PackageReference Include="System.Net.Http" Version="4.3.1" />

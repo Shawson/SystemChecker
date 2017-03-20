@@ -4,6 +4,8 @@ using SystemChecker.Model;
 using SystemChecker.Model.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using DasMulli.Win32.ServiceUtils;
+using System.Linq;
 
 namespace SystemChecker.Console
 {
@@ -14,13 +16,6 @@ namespace SystemChecker.Console
 
         public static void Main(string[] args)
         {
-            System.Console.CancelKeyPress += delegate
-            {
-                System.Console.WriteLine("Shut down requested");
-                // call methods to clean up
-                _killSwitch = true;
-            };
-
             var config = new ConfigurationBuilder()
                .AddJsonFile("appsettings.json")
                .AddEnvironmentVariables()
@@ -40,20 +35,38 @@ namespace SystemChecker.Console
 #endif
 
                 var repoFactory = new DapperRepositoryFactory(connectionString);
+                
 
                 var svc = new SystemCheckerRunner(repoFactory, logger);
-                svc.Start();
 
-                // at this point do we also add a tcp listener which allows us to trigger tests immediately?
 
-                while (!_killSwitch)
+
+                if (args.Any(x => x == "--service" || x == "-s"))
                 {
-                    Thread.Sleep(1000);
+                    var serviceHost = new Win32ServiceHost(svc);
+                    serviceHost.Run();
                 }
+                else
+                {
+                    System.Console.CancelKeyPress += delegate
+                    {
+                        System.Console.WriteLine("Shut down requested");
+                        // call methods to clean up
+                        _killSwitch = true;
+                    };
 
-                logger.LogInformation("Shutting down..");
-                svc.Stop();
+                    svc.Start();
 
+                    // at this point do we also add a tcp listener which allows us to trigger tests immediately?
+
+                    while (!_killSwitch)
+                    {
+                        Thread.Sleep(1000);
+                    }
+
+                    logger.LogInformation("Shutting down..");
+                    svc.Stop();
+                }
             }
             catch (Exception ex)
             {
