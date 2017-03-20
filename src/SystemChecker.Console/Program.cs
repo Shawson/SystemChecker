@@ -18,6 +18,11 @@ namespace SystemChecker.Console
 
         public static void Main(string[] args)
         {
+            if (args.Any(x => x == "--directory" || x == "-d"))
+            {
+                Directory.SetCurrentDirectory(PlatformServices.Default.Application.ApplicationBasePath); // otherwise ends up in system32 for windows service
+            }
+
             var config = new ConfigurationBuilder()
                .AddJsonFile("appsettings.json")
                .AddEnvironmentVariables()
@@ -48,7 +53,6 @@ namespace SystemChecker.Console
 
                 if (args.Any(x => x == "--service" || x == "-s"))
                 {
-                    Directory.SetCurrentDirectory(PlatformServices.Default.Application.ApplicationBasePath); // otherwise ends up in system32
                     var serviceHost = new Win32ServiceHost(svc);
                     serviceHost.Run();
                 }
