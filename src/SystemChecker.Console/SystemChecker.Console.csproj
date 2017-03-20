@@ -9,6 +9,7 @@
     <ApplicationIcon />
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
+    <Version>1.0.0-dev</Version>
   </PropertyGroup>
 
   <ItemGroup>
