@@ -52,7 +52,7 @@ namespace SystemChecker.Model.Scheduling
                 result = null;
                 GC.Collect();
 
-                return null;
+                return Task.CompletedTask;
             }
             catch (Exception e)
             {

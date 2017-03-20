@@ -27,7 +27,7 @@ namespace SystemChecker.Model
             sched = await schedFact.GetScheduler();
 
             // handle job failures
-            //sched.ListenerManager.AddJobListener(new GlobalJobListener(logger), GroupMatcher<JobKey>.AnyGroup());
+            sched.ListenerManager.AddJobListener(new GlobalJobListener(logger), GroupMatcher<JobKey>.AnyGroup());
             sched.ListenerManager.AddSchedulerListener(new GlobalSchedulerListener(logger));
 
             // Kids: don't share repositories!
@@ -78,121 +78,121 @@ namespace SystemChecker.Model
         public Task JobAdded(IJobDetail jobDetail)
         {
             logger.LogDebug($"Job added: {jobDetail.Key.Group} - {jobDetail.Key.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobDeleted(JobKey jobKey)
         {
             logger.LogDebug($"Job deleted: {jobKey.Group} - {jobKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobPaused(JobKey jobKey)
         {
             logger.LogDebug($"Job paused: {jobKey.Group} - {jobKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobResumed(JobKey jobKey)
         {
             logger.LogDebug($"Job resumed: {jobKey.Group} - {jobKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobScheduled(ITrigger trigger)
         {
             logger.LogDebug($"Job scheduled: {trigger.Key.Group} - {trigger.Key.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobsPaused(string jobGroup)
         {
             logger.LogDebug($"Jobs paused: {jobGroup}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobsResumed(string jobGroup)
         {
             logger.LogDebug($"Jobs resumed: {jobGroup}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobUnscheduled(TriggerKey triggerKey)
         {
             logger.LogDebug($"Job unscheduled: {triggerKey.Group} - {triggerKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerError(string msg, SchedulerException cause)
         {
             logger.LogError($"Scheduler error: {msg}: {cause.Message}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerInStandbyMode()
         {
             logger.LogDebug("Scheduler standby");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerShutdown()
         {
             logger.LogDebug("Scheduler shutdown");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerShuttingdown()
         {
             logger.LogDebug("Scheduler shutting down");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerStarted()
         {
             logger.LogDebug("Scheduler started");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulerStarting()
         {
             logger.LogDebug("Scheduler starting");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task SchedulingDataCleared()
         {
             logger.LogDebug("Scheduling data cleared");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task TriggerFinalized(ITrigger trigger)
         {
             logger.LogDebug($"Trigger finalized: {trigger.Key.Group} - {trigger.Key.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task TriggerPaused(TriggerKey triggerKey)
         {
             logger.LogDebug($"Trigger paused: {triggerKey.Group} - {triggerKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task TriggerResumed(TriggerKey triggerKey)
         {
             logger.LogDebug($"Trigger resumed: {triggerKey.Group} - {triggerKey.Name}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task TriggersPaused(string triggerGroup)
         {
             logger.LogDebug($"Triggers paused: {triggerGroup}");
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task TriggersResumed(string triggerGroup)
         {
             logger.LogDebug($"Triggers resumed: {triggerGroup}");
-            return null;
+            return Task.CompletedTask;
         }
     }
 
@@ -211,12 +211,12 @@ namespace SystemChecker.Model
 
         public Task JobToBeExecuted(IJobExecutionContext context)
         {
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobExecutionVetoed(IJobExecutionContext context)
         {
-            return null;
+            return Task.CompletedTask;
         }
 
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException)
@@ -231,7 +231,7 @@ namespace SystemChecker.Model
                 logger.LogInformation($"Job Executed : {context.JobDetail.Description}");
             }
 
-            return null;
+            return Task.CompletedTask;
         }
     }
 }
