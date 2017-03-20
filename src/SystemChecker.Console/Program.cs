@@ -28,10 +28,12 @@ namespace SystemChecker.Console
                .AddEnvironmentVariables()
                .Build();
 
-            ILoggerFactory factory = new LoggerFactory().AddConsole(config.GetSection("Logging"));
+            var logSection = config.GetSection("Logging");
+
+            ILoggerFactory factory = new LoggerFactory().AddConsole(logSection);
             if (args.Any(x => x == "--log" || x == "-l"))
             {
-                factory.AddFile("logs/systemchecker-{Date}.txt");
+                factory.AddFile(logSection);
             }
 
             var logger = factory.CreateLogger("SystemCheckerRunner");
