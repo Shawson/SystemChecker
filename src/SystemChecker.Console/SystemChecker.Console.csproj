@@ -3,6 +3,10 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputType>exe</OutputType>
   </PropertyGroup>
+  
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputType>exe</OutputType>
+  </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
