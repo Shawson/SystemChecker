@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DasMulli.Win32.ServiceUtils;
 using System.Linq;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace SystemChecker.Console
 {
@@ -46,6 +48,7 @@ namespace SystemChecker.Console
 
                 if (args.Any(x => x == "--service" || x == "-s"))
                 {
+                    Directory.SetCurrentDirectory(PlatformServices.Default.Application.ApplicationBasePath); // otherwise ends up in system32
                     var serviceHost = new Win32ServiceHost(svc);
                     serviceHost.Run();
                 }
