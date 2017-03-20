@@ -34,6 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.0.0-alpha2" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

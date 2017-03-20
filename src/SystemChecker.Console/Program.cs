@@ -22,6 +22,11 @@ namespace SystemChecker.Console
                .Build();
 
             ILoggerFactory factory = new LoggerFactory().AddConsole(config.GetSection("Logging"));
+            if (args.Any(x => x == "--log" || x == "-l"))
+            {
+                factory.AddFile("logs/systemchecker-{Date}.txt");
+            }
+
             var logger = factory.CreateLogger("SystemCheckerRunner");
 
             logger.LogInformation("Starting");
@@ -38,8 +43,6 @@ namespace SystemChecker.Console
                 
 
                 var svc = new SystemCheckerRunner(repoFactory, logger);
-
-
 
                 if (args.Any(x => x == "--service" || x == "-s"))
                 {
