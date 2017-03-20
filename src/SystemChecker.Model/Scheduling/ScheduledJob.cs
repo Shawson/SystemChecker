@@ -3,6 +3,7 @@ using System;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Checkers.Serialisation;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.Data.Repositories;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@ namespace SystemChecker.Model.Scheduling
         private ISystemCheck _checker;
         private ICheckResultRepository _checkResultRepo;
 
-        public void Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             try {
 
@@ -50,6 +51,8 @@ namespace SystemChecker.Model.Scheduling
                 stopWatch = null;
                 result = null;
                 GC.Collect();
+
+                return Task.CompletedTask;
             }
             catch (Exception e)
             {

@@ -16,17 +16,19 @@ namespace SystemChecker.Model.Checkers
             logger.LogDebug($"Starting PingChecker- CheckId {this.CheckToPerformId}");
 
             using (var pingSender = new Ping())
-            { 
-                var options = new PingOptions();
+            {
+                var options = new PingOptions
+                {
+                    DontFragment = true
+                };
 
-                options.DontFragment = true;
 
                 // Create a buffer of 32 bytes of data to be transmitted.
                 string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
                 byte[] buffer = Encoding.ASCII.GetBytes(data);
 
                 try {
-                    PingReply reply = pingSender.Send(Settings.HostNameOrAddress, Settings.FailureResponseTimeoutMS, buffer, options);
+                    PingReply reply = pingSender.SendPingAsync(Settings.HostNameOrAddress, Settings.FailureResponseTimeoutMS, buffer, options).Result;
 
                     var thisRun = new
                     {

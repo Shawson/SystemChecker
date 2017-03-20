@@ -1,9 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl.Matchers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SystemChecker.Model.Helpers
 {
@@ -11,15 +8,15 @@ namespace SystemChecker.Model.Helpers
     {
         public static IJobDetail GetJobFromCheckId(this IScheduler sched, int CheckId)
         {
-            var jobGroups = sched.GetJobGroupNames();
+            var jobGroups = sched.GetJobGroupNames().Result;
             foreach (var group in jobGroups)
             {
                 var groupMatcher = GroupMatcher<JobKey>.GroupContains(group);
-                var jobKeys = sched.GetJobKeys(groupMatcher);
+                var jobKeys = sched.GetJobKeys(groupMatcher).Result;
 
                 foreach (var jobKey in jobKeys)
                 {
-                    var detail = sched.GetJobDetail(jobKey);
+                    var detail = sched.GetJobDetail(jobKey).Result;
                     if (detail.JobDataMap.GetInt("CheckToPerformId") == CheckId)
                     {
                         return detail;
@@ -33,7 +30,7 @@ namespace SystemChecker.Model.Helpers
             var job = GetJobFromCheckId(sched, CheckId);
             if (job != null)
             {
-                return sched.GetTriggersOfJob(job.Key).Where(x => x.JobDataMap.GetInt("CheckTriggerId") == TriggerId).FirstOrDefault();
+                return sched.GetTriggersOfJob(job.Key).Result.FirstOrDefault(x => x.JobDataMap.GetInt("CheckTriggerId") == TriggerId);
             }
             else
             {

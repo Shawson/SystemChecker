@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SystemChecker.Model.QueryBuilder;
 using SystemChecker.Model.QueryBuilder.Enums;
 using Xunit;
+using Newtonsoft.Json.Linq;
 
 namespace SystemChecker.Model.Tests
 {

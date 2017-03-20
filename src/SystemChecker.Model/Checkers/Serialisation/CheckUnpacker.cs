@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Interfaces;
@@ -14,14 +15,16 @@ namespace SystemChecker.Model.Checkers.Serialisation
             var checkType = repoFactory.GetCheckTypeRepository().GetById(check.CheckTypeId);
             // todo: cache check types?
 
-            var checker = (ISystemCheck)Activator.CreateInstance(checkType.CheckAssembly, checkType.CheckTypeName).Unwrap();
+            var type = Type.GetType($"{checkType.CheckTypeName}, {checkType.CheckAssembly}");
+            
+            var checker = (ISystemCheck)Activator.CreateInstance(type);
 
             checker.CheckToPerformId = check.CheckId;
 
             if (!string.IsNullOrWhiteSpace(check.Settings))
             {
 
-                var settingsProperty = checker.GetType().GetProperty("Settings");
+                var settingsProperty = checker.GetType().GetTypeInfo().GetProperty("Settings");
 
                 var settingsObject = JsonConvert.DeserializeObject(check.Settings, settingsProperty.PropertyType);
 

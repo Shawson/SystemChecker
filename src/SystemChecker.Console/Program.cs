@@ -14,23 +14,25 @@ namespace SystemChecker.Console
 
         public static void Main(string[] args)
         {
-            System.Console.CancelKeyPress += delegate {
+            System.Console.CancelKeyPress += delegate
+            {
                 System.Console.WriteLine("Shut down requested");
                 // call methods to clean up
                 _killSwitch = true;
             };
 
-            ILoggerFactory factory = new LoggerFactory().AddConsole();
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+               .AddEnvironmentVariables()
+               .Build();
+
+            ILoggerFactory factory = new LoggerFactory().AddConsole(config.GetSection("Logging"));
             var logger = factory.CreateLogger("SystemCheckerRunner");
 
-            System.Console.WriteLine("Starting");
-            
-            try {
-                var config = new ConfigurationBuilder()
-                   .AddJsonFile("appsettings.json")
-                   .AddEnvironmentVariables()
-                   .Build();
+            logger.LogInformation("Starting");
 
+            try
+            {
 #if (DEBUG)
                 var connectionString = config[$"Data:DefaultConnection:ConnectionString-{config["COMPUTERNAME"]}"];
 #else
@@ -41,6 +43,8 @@ namespace SystemChecker.Console
 
                 var svc = new SystemCheckerRunner(repoFactory, logger);
                 svc.Start();
+
+                // at this point do we also add a tcp listener which allows us to trigger tests immediately?
 
                 while (!_killSwitch)
                 {

@@ -2,23 +2,19 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Reflection;
-using System.Security.Principal;
 using SystemChecker.Model.Checkers;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 using SystemChecker.Model.Interfaces;
 using Microsoft.Extensions.Logging;
-using Roslyn.Scripting.CSharp;
 using NetworkConnection = SystemChecker.FileSystem.Network.NetworkConnection;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace SystemChecker.FileSystem
 {
     public class FileExistsChecker : BaseChecker<FileExistsCheckerSettings>, ISystemCheck
     {
-        private static WindowsImpersonationContext _identity = null;
-        private static IntPtr _logonToken = IntPtr.Zero;
-        
         public CheckResult PerformCheck(ICheckResultRepository resultsRepo, ILogger logger)
         {
             logger.LogDebug($"Starting FileExistsChecker- CheckId {this.CheckToPerformId}");
@@ -26,16 +22,10 @@ namespace SystemChecker.FileSystem
             var found = false;
             DateTime? lastWriteTime = null;
 
-            // use roslyn to figure evaluate the filename
-            var engine = new ScriptEngine();
-            engine.AddReference(Assembly.GetAssembly(typeof(DateTime)));
-            engine.ImportNamespace("System");
-            var session = engine.CreateSession(); // create session
-            
-            var pathToFile = (string)session.Execute(Settings.PathToFileExpression);
-
-            session = null;
-            engine = null;
+            //// https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
+            //// use roslyn to figure evaluate the filename
+            var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
+                ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
 
             var timer = new Stopwatch();
             timer.Start();
@@ -51,7 +41,6 @@ namespace SystemChecker.FileSystem
                         found = true;
                     }
                 }
-
             }
             else
             {

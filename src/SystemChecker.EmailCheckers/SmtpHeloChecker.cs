@@ -35,7 +35,7 @@ namespace SystemChecker.EmailCheckers
 
                 if(!IPAddress.TryParse(Settings.SMTPServerAddress, out ipAddress))
                 {
-                    IPHostEntry hostEntry = Dns.GetHostEntry(Settings.SMTPServerAddress);
+                    IPHostEntry hostEntry = Dns.GetHostEntryAsync(Settings.SMTPServerAddress).Result;
                     ipAddress = hostEntry.AddressList[0];
                 }
 

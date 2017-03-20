@@ -37,7 +37,7 @@ namespace SystemChecker.Web.API
             return null;
         }
 
-        // GET api/Triggers/5
+        // GET api/Triggers/GetNextDate
         [HttpPost("GetNextDate")]
         public DateTime? GetNextDate([FromBody]string expression)
         {

@@ -29,7 +29,8 @@ namespace SystemChecker.Model.Data.Repositories
             Type type = typeof(TEntity);
             PropertyInfo[] properties = type.GetProperties();
 
-            var tableAttribute = type.GetCustomAttribute(typeof(TableAttribute)) as TableAttribute; // find the table name 
+
+            var tableAttribute = type.GetTypeInfo().GetCustomAttribute(typeof(TableAttribute)) as TableAttribute; // find the table name 
 
             if (tableAttribute == null)
                 throw new Exception("Entity is missing a table attribute");
@@ -58,9 +59,9 @@ namespace SystemChecker.Model.Data.Repositories
                     }
                 }
             }
-
+            
             if (!primaryKeys.Any())
-                throw new MissingPrimaryKeyException("The Key attribute is not on any properites");
+                throw new ArgumentException("The Key attribute is not on any properites");
 
             PrimaryKey = string.Join(",", primaryKeys.ToArray());
             ColumnsForInsert = string.Join(",", columns.ToArray());
