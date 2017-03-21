@@ -258,3 +258,4 @@ paket-files/
 *.sln.iml
 
 *.jfm
+/src/SystemChecker.Console/logs

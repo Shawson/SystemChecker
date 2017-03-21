@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using SystemChecker.Model.Data.Interfaces;
 using Microsoft.Extensions.Logging;
+using DasMulli.Win32.ServiceUtils;
 
 namespace SystemChecker.Model
 {
-    public class SystemCheckerRunner
+    public class SystemCheckerRunner : IWin32Service
     {
         private static IScheduler sched;
         private static IRepositoryFactory repoFactory;
@@ -21,6 +22,9 @@ namespace SystemChecker.Model
             repoFactory = repositoryFactory;
             this.logger = logger;
         }
+
+        public string ServiceName => "SystemChecker";
+
         public async void Start()
         {
             ISchedulerFactory schedFact = new StdSchedulerFactory();
@@ -60,6 +64,12 @@ namespace SystemChecker.Model
             // todo: Add a signalR server which the web ui can connect to to request immediate re-runs of tests/ be notified of recent results
             //http://stackoverflow.com/questions/11140164/signalr-console-app-example
         }
+
+        public void Start(string[] startupArguments, ServiceStoppedCallback serviceStoppedCallback)
+        {
+            Start();
+        }
+
         public void Stop()
         {
             sched.Shutdown(true);

@@ -3,12 +3,18 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputType>exe</OutputType>
   </PropertyGroup>
+  
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputType>exe</OutputType>
+  </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <ApplicationIcon />
     <OutputTypeEx>exe</OutputTypeEx>
     <StartupObject />
+    <Version>1.0.0-dev</Version>
+	<RuntimeIdentifiers>win10-x64,win81-x64,win8-x64,win7-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DasMulli.Win32.ServiceUtils" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Quartz" Version="3.0.0-alpha2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
@@ -27,6 +35,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.0.0-alpha2" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
