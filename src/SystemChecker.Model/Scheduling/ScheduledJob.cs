@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using SystemChecker.Model.Interfaces;
 using SystemChecker.Model.Data.Repositories;
 using Microsoft.Extensions.Logging;
+using SystemChecker.Model.Data;
+using Newtonsoft.Json;
 
 namespace SystemChecker.Model.Scheduling
 {
@@ -39,7 +41,26 @@ namespace SystemChecker.Model.Scheduling
 
                 var startTime = DateTime.Now;
                 stopWatch.Start();
-                var result = _checker.PerformCheck(_checkResultRepo, logger);
+                CheckResult result = null;
+                Exception exception = null;
+                try
+                {
+                    result = _checker.PerformCheck(_checkResultRepo, logger);
+                }
+                catch (Exception e)
+                {
+                    exception = e;
+                    result = new CheckResult
+                    {
+                        FailureDetail = e.ToString(),
+                        Result = -99,
+                        RunData = JsonConvert.SerializeObject(new
+                        {
+                            Exception = e.Message,
+                            StackTrace = e.StackTrace
+                        })
+                    };
+                }
                 stopWatch.Stop();
                 
                 result.DurationMS = (int)stopWatch.ElapsedMilliseconds;
@@ -51,6 +72,11 @@ namespace SystemChecker.Model.Scheduling
                 stopWatch = null;
                 result = null;
                 GC.Collect();
+
+                if (exception != null)
+                {
+                    throw exception;
+                }
 
                 return Task.CompletedTask;
             }
