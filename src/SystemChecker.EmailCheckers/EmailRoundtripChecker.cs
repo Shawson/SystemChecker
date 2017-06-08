@@ -54,7 +54,12 @@ namespace SystemChecker.EmailCheckers
                 {
                     var lastRunData = JObject.Parse(lastRun.RunData);
 
-                    lastEmailReceived = FetchTestMail(lastRunData["TestEMailToken"].Value<string>(), logger).Result;
+                    var token = lastRunData["TestEMailToken"];
+
+                    if (token != null)
+                    {
+                        lastEmailReceived = FetchTestMail(token.Value<string>(), logger).Result;
+                    }
                 }
                 catch (AuthenticationException ae)
                 {

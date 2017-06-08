@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SystemChecker.Model\SystemChecker.Model.csproj" />
     <ProjectReference Include="..\SystemChecker.EmailCheckers\SystemChecker.EmailCheckers.csproj" />
     <ProjectReference Include="..\SystemChecker.FileSystem\SystemChecker.FileSystem.csproj" />

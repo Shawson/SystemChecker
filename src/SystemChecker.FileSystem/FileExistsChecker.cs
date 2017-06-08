@@ -25,7 +25,7 @@ namespace SystemChecker.FileSystem
             //// https://github.com/dotnet/roslyn/wiki/Scripting-API-Samples
             //// use roslyn to figure evaluate the filename
             var pathToFile = CSharpScript.EvaluateAsync<string>(Settings.PathToFileExpression,
-                ScriptOptions.Default.WithReferences(typeof(DateTime).AssemblyQualifiedName)).Result;
+                ScriptOptions.Default.WithImports("System")).Result;
 
             var timer = new Stopwatch();
             timer.Start();
