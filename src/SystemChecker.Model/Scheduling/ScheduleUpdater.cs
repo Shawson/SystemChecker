@@ -28,9 +28,12 @@ namespace SystemChecker.Model.Scheduling
 
         public async Task Execute(IJobExecutionContext context)
         {
+            var logger = context.Scheduler.Context["Logger"] as ILogger;
+
             if (!_running)
             {
                 _running = true;
+                logger.LogInformation("Running Schedule Update");
 
                 try
                 {
@@ -63,11 +66,13 @@ namespace SystemChecker.Model.Scheduling
             }
             else
             {
-                var logger = context.Scheduler.Context["Logger"] as ILogger;
+                
                 logger.LogWarning("Not running update check as already running!");
             }
 
             _lastRun = DateTime.Now;
+
+            return;
         }
 
         private async Task UpdateJobs(IJobExecutionContext context)
@@ -205,7 +210,7 @@ namespace SystemChecker.Model.Scheduling
         {
             var groupMatcher = GroupMatcher<JobKey>.AnyGroup();
             var keys = await _sched.GetJobKeys(groupMatcher);
-            return keys.ToDictionary(key => key.Name);
+            return keys.Where(x => x.Name != "ScheduleUpdater").ToDictionary(key => key.Name);
         }
 
         private async Task<Dictionary<string, TriggerKey>> GetCurrentTriggerKeysDictionary(int checkId)

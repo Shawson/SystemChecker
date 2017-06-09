@@ -51,7 +51,7 @@ namespace SystemChecker.Model
             ITrigger updateTrigger = TriggerBuilder.Create()
                     .WithIdentity($"TriggerScheduleUpdater", $"Updater")
                     .StartNow()
-                    .WithCronSchedule("0 0/5 * * * ? *")  // check every 5 minutes for changes to the work list
+                    .WithCronSchedule("* 0/1 * * * ? *")  // check every 10 seconds for changes to the work list
                     .Build();
 
             await sched.ScheduleJob(updatejob, updateTrigger);
@@ -238,7 +238,7 @@ namespace SystemChecker.Model
             }
             else
             {
-                logger.LogInformation($"Job Executed : {context.JobDetail.Description}");
+                logger.LogInformation($"Job Executed : {context.JobDetail.Description} ({context.JobDetail.Key})");
             }
 
             return Task.CompletedTask;
