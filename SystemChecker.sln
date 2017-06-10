@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68F1D712-A837-4D77-B185-E2CC4EA4E421}"
 EndProject
@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.EmailCheckers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.FileSystem", "src\SystemChecker.FileSystem\SystemChecker.FileSystem.csproj", "{D1551076-8050-43B9-A4CF-F307EF5E8202}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.WebAdmin", "src\SystemChecker.WebAdmin\SystemChecker.WebAdmin.csproj", "{68F8731C-B958-45FA-B494-C2097003163E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemChecker.Administration", "src\SystemChecker.Administration\SystemChecker.Administration.csproj", "{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +64,10 @@ Global
 		{D1551076-8050-43B9-A4CF-F307EF5E8202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1551076-8050-43B9-A4CF-F307EF5E8202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1551076-8050-43B9-A4CF-F307EF5E8202}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68F8731C-B958-45FA-B494-C2097003163E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68F8731C-B958-45FA-B494-C2097003163E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68F8731C-B958-45FA-B494-C2097003163E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68F8731C-B958-45FA-B494-C2097003163E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +79,6 @@ Global
 		{276A2C6B-C4FD-4F46-AC14-9FAB4E616CAA} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 		{23E01237-A1CB-4EAB-A672-877AE4F397EC} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 		{D1551076-8050-43B9-A4CF-F307EF5E8202} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
-		{68F8731C-B958-45FA-B494-C2097003163E} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
+		{F5B7B9FB-40A5-4CC6-AA19-F355D0BF0ACE} = {68F1D712-A837-4D77-B185-E2CC4EA4E421}
 	EndGlobalSection
 EndGlobal

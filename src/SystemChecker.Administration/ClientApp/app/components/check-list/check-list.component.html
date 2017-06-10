@@ -1,0 +1,25 @@
+﻿<h1>Check list</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!checks"><em>Loading...</em></p>
+
+<table class='table' *ngIf="checks">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Suite Id</th>
+            <th>System Name</th>
+            <th>Disabled</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let check of checks">
+            <td>{{ check.checkId }}</td>
+            <td>{{ check.checkSuiteId }}</td>
+            <td>{{ check.systemName }}</td>
+            <td>{{ check.disabled }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -13,7 +13,7 @@ namespace SystemChecker.Model
 {
     public class SystemCheckerRunner : IWin32Service
     {
-        private static IScheduler sched;
+        public static IScheduler sched;
         private static IRepositoryFactory repoFactory;
         private ILogger logger;
 

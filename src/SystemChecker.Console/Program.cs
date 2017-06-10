@@ -69,6 +69,8 @@ namespace SystemChecker.Console
 
                     svc.Start();
 
+                    //SystemCheckerRunner.sched // access to the scheduler
+
                     // at this point do we also add a tcp listener which allows us to trigger tests immediately?
 
                     while (!_killSwitch)
