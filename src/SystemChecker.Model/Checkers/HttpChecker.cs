@@ -50,9 +50,10 @@ namespace SystemChecker.Model.Checkers
                         responseString = response.Content.ReadAsStringAsync().Result;
                         timer.Stop();
                     }
-                    catch (HttpRequestException e)
+                    catch (HttpRequestException wex)
                     {
-                        /*
+                        
+                        
                         logger.LogDebug($"WebException : {wex}");
 
                         if (wex.Message.Contains("The operation has timed out"))
@@ -65,9 +66,13 @@ namespace SystemChecker.Model.Checkers
                         }
                         else
                         {
-                            response = (HttpWebResponse)wex.Response;
+                            return new CheckResult
+                            {
+                                FailureDetail = wex.Message,
+                                Result = (int)SuccessStatus.Failure
+                            };
                         }
-                         */
+                        
                     }
                 }
             }

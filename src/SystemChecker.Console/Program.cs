@@ -8,6 +8,7 @@ using DasMulli.Win32.ServiceUtils;
 using System.Linq;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SystemChecker.Console
 {
@@ -50,7 +51,6 @@ namespace SystemChecker.Console
 
                 var repoFactory = new DapperRepositoryFactory(connectionString);
                 
-
                 var svc = new SystemCheckerRunner(repoFactory, logger);
 
                 if (args.Any(x => x == "--service" || x == "-s"))
@@ -72,6 +72,13 @@ namespace SystemChecker.Console
                     //SystemCheckerRunner.sched // access to the scheduler
 
                     // at this point do we also add a tcp listener which allows us to trigger tests immediately?
+                    // pass a reference of the actual service runner?
+                    var host = new WebHostBuilder()
+                        .UseKestrel()
+                        .UseContentRoot(Directory.GetCurrentDirectory())
+                        .UseStartup<Startup>()
+                        .Build();
+                    host.Run();
 
                     while (!_killSwitch)
                     {
