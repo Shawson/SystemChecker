@@ -9,6 +9,7 @@ using System.Linq;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SystemChecker.Console
 {
@@ -60,32 +61,40 @@ namespace SystemChecker.Console
                 }
                 else
                 {
+                    var hostCancellationToken = new CancellationTokenSource();
+
                     System.Console.CancelKeyPress += delegate
                     {
                         System.Console.WriteLine("Shut down requested");
                         // call methods to clean up
                         _killSwitch = true;
+                        hostCancellationToken.Cancel(false);
                     };
 
                     svc.Start();
 
-                    //SystemCheckerRunner.sched // access to the scheduler
-
                     // at this point do we also add a tcp listener which allows us to trigger tests immediately?
                     // pass a reference of the actual service runner?
+                    
+                    var startup = new Startup(svc.Scheduler);
+
                     var host = new WebHostBuilder()
                         .UseKestrel()
                         .UseContentRoot(Directory.GetCurrentDirectory())
-                        .UseStartup<Startup>()
+                        .ConfigureServices(services => services.AddSingleton<IStartup>(startup))
                         .Build();
-                    host.Run();
+                    host.Run(hostCancellationToken.Token);
 
+                    /*
+                     * web host process now holds the thread open
                     while (!_killSwitch)
                     {
                         Thread.Sleep(1000);
                     }
+                    */
 
                     logger.LogInformation("Shutting down..");
+                    
                     svc.Stop();
                 }
             }
@@ -94,8 +103,7 @@ namespace SystemChecker.Console
                 logger.LogCritical($"{DateTime.Now} : {ex.ToString()}");
             }
 
-            System.Console.WriteLine("Shut down- Press return");
-            System.Console.ReadLine();
+            System.Console.WriteLine("Shut down");
         }
     }
 }

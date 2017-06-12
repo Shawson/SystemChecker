@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,12 +8,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
-using SystemChecker.Model;
 
 namespace SystemChecker.Console
 {
-    public class Startup 
+    public class Startup : IStartup
     {
+        private IScheduler _scheduler;
+        private WebSocketJobListener _scheduleListener;
+
+        public Startup(IScheduler scheduler)
+        {
+            _scheduler = scheduler;
+        }
+
         public void Configure(IApplicationBuilder app)
         {
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/websockets
@@ -22,6 +30,7 @@ namespace SystemChecker.Console
                 ReceiveBufferSize = 4 * 1024
             };
             app.UseWebSockets(webSocketOptions);
+            _scheduleListener = new WebSocketJobListener();
             app.Use(async (context, next) =>
             {
                 // add a listener?  would be better if this can be somehow passed in?
@@ -32,12 +41,13 @@ namespace SystemChecker.Console
                     if (context.WebSockets.IsWebSocketRequest)
                     {
                         WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await Echo(context, webSocket);
+                        _scheduleListener.WebSockets.Add(webSocket);
+                        await ListenForSocketClosureRequest(context, webSocket);
                     }
                     else
                     {
                         //context.Response.StatusCode = 400;
-                        var jobGroups = await SystemCheckerRunner.sched.GetJobGroupNames();
+                        var jobGroups = await _scheduler.GetJobGroupNames();
 
                         foreach(var s in jobGroups)
                         {
@@ -52,25 +62,38 @@ namespace SystemChecker.Console
                 }
 
             });
-            /*
-            app.Run(context => {
-                var jobs = SystemCheckerRunner.sched.GetCurrentlyExecutingJobs();
-                
-                return context.Response.WriteAsync(jobs.Result.Count.ToString());
-            });
-            */
+
+            _scheduler.ListenerManager.AddJobListener(_scheduleListener);
+
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IApplicationLifetime>();
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
         }
 
-        private async Task Echo(HttpContext context, WebSocket webSocket)
+        private void OnShutdown()
+        {
+            // close off the sockets
+            foreach (var skt in _scheduleListener.WebSockets)
+            {
+                skt.CloseAsync(WebSocketCloseStatus.NormalClosure, "Application Shutdown", CancellationToken.None)
+                    .RunSynchronously();
+            }
+            
+        }
+
+        public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            return services.BuildServiceProvider();
+        }
+
+        private async Task ListenForSocketClosureRequest(HttpContext context, WebSocket webSocket)
         {
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             while (!result.CloseStatus.HasValue)
             {
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
+            _scheduleListener.WebSockets.Remove(webSocket);
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
         }
     }
