@@ -72,12 +72,12 @@ namespace SystemChecker.Console
         private void OnShutdown()
         {
             // close off the sockets
-            foreach (var skt in _scheduleListener.WebSockets)
+            for(var i =0; i < _scheduleListener.WebSockets.Count; i++)
             {
-                skt.CloseAsync(WebSocketCloseStatus.NormalClosure, "Application Shutdown", CancellationToken.None)
-                    .RunSynchronously();
+                _scheduleListener.WebSockets[i].CloseAsync(WebSocketCloseStatus.NormalClosure, "Application Shutdown", CancellationToken.None).Wait();
             }
-            
+
+            _scheduleListener.WebSockets.RemoveAll(x => true);
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -93,8 +93,9 @@ namespace SystemChecker.Console
             {
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
-            _scheduleListener.WebSockets.Remove(webSocket);
+            
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            _scheduleListener.WebSockets.Remove(webSocket);
         }
     }
 }

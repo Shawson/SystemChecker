@@ -239,7 +239,9 @@ namespace SystemChecker.Model
             }
             else
             {
-                _logger.LogInformation($"Job Executed : {context.JobDetail.Description} ({context.JobDetail.Key})");
+                _logger.LogInformation($"Job Executed : {context.JobDetail.Description} ({context.JobDetail.Key}) Result ({context.Result??"null"}) Next run at {context.NextFireTimeUtc}");
+                
+                
             }
 
             return Task.CompletedTask;

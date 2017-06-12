@@ -15,7 +15,6 @@ namespace SystemChecker.Console
 {
     public class Program
     {
-        private static bool _killSwitch = false;
         public Program() { }
 
         public static void Main(string[] args)
@@ -66,15 +65,16 @@ namespace SystemChecker.Console
                     System.Console.CancelKeyPress += delegate
                     {
                         System.Console.WriteLine("Shut down requested");
-                        // call methods to clean up
-                        _killSwitch = true;
+                        logger.LogInformation("Shutting down http..");
+
                         hostCancellationToken.Cancel(false);
                     };
 
+                    // Start the windows service
+
                     svc.Start();
 
-                    // at this point do we also add a tcp listener which allows us to trigger tests immediately?
-                    // pass a reference of the actual service runner?
+                    // Start http service for realtime updates via web sockets
                     
                     var startup = new Startup(svc.Scheduler);
 
@@ -93,9 +93,12 @@ namespace SystemChecker.Console
                     }
                     */
 
-                    logger.LogInformation("Shutting down..");
+                    logger.LogInformation("Http shutdown");
+                    logger.LogInformation("Shutting down service..");
                     
                     svc.Stop();
+
+                    logger.LogInformation("Service shutdown");
                 }
             }
             catch (Exception ex)
@@ -103,7 +106,7 @@ namespace SystemChecker.Console
                 logger.LogCritical($"{DateTime.Now} : {ex.ToString()}");
             }
 
-            System.Console.WriteLine("Shut down");
+            System.Console.WriteLine("Shut down complete");
         }
     }
 }

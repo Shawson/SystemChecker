@@ -4,6 +4,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Quartz;
 
 namespace SystemChecker.Console
@@ -47,15 +48,29 @@ namespace SystemChecker.Console
             if (jobException != null)
             {
                 // Log/handle error here
-                await Broadcast($"Job Errored : {context.JobDetail.Description} - {jobException.ToString()}");
+                //await Broadcast($"Job Errored : {context.JobDetail.Description} - {jobException.ToString()}");
+                string json = JsonConvert.SerializeObject(new
+                {
+                    State = -999, // do we need this?
+                    CheckId = context.JobDetail.Key,
+                    FireTime = context.FireTimeUtc,
+                    NextFireTime = context.NextFireTimeUtc,
+                    Result = context.Result
+                }, Formatting.None);
+                await Broadcast(json);
             }
             else
             {
-                await Broadcast($"Job Executed : {context.JobDetail.Description} ({context.JobDetail.Key})");
-                
+                string json = JsonConvert.SerializeObject(new
+                {
+                    State = 0, // do we need this?
+                    CheckId = context.JobDetail.Key,
+                    FireTime = context.FireTimeUtc,
+                    NextFireTime = context.NextFireTimeUtc,
+                    Result = context.Result
+                }, Formatting.None);
+                await Broadcast(json);
             }
-
-            //return Task.CompletedTask;
         }
     }
 }
