@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace SystemChecker.Console
+namespace SystemChecker.Model
 {
     public class WebSocketJobListener : Quartz.IJobListener
     {

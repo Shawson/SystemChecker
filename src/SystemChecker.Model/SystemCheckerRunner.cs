@@ -1,13 +1,15 @@
-﻿using System;
+﻿using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using DasMulli.Win32.ServiceUtils;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using Quartz.Impl;
-using SystemChecker.Model.Scheduling;
 using Quartz.Impl.Matchers;
-using System.Text;
-using System.Threading.Tasks;
 using SystemChecker.Model.Data.Interfaces;
-using Microsoft.Extensions.Logging;
-using DasMulli.Win32.ServiceUtils;
+using SystemChecker.Model.Scheduling;
 
 namespace SystemChecker.Model
 {
@@ -16,11 +18,13 @@ namespace SystemChecker.Model
         private static IScheduler _scheduler;
         private static IRepositoryFactory _repoFactory;
         private ILogger _logger;
+        private CancellationToken _killToken;
 
-        public SystemCheckerRunner(IRepositoryFactory repositoryFactory, ILogger logger)
+        public SystemCheckerRunner(IRepositoryFactory repositoryFactory, ILogger logger, CancellationToken killToken)
         {
             _repoFactory = repositoryFactory;
             _logger = logger;
+            _killToken = killToken;
         }
 
         public string ServiceName => "SystemChecker";
@@ -52,7 +56,7 @@ namespace SystemChecker.Model
             ITrigger updateTrigger = TriggerBuilder.Create()
                     .WithIdentity($"TriggerScheduleUpdater", $"Updater")
                     .StartNow()
-                    .WithCronSchedule("* 0/1 * * * ? *")  // check every 10 seconds for changes to the work list
+                    .WithCronSchedule("* 0/10 * * * ? *")  // check every 10 seconds for changes to the work list
                     .Build();
 
             await _scheduler.ScheduleJob(updatejob, updateTrigger);
@@ -64,6 +68,13 @@ namespace SystemChecker.Model
 
             // todo: Add a signalR server which the web ui can connect to to request immediate re-runs of tests/ be notified of recent results
             //http://stackoverflow.com/questions/11140164/signalr-console-app-example
+            var startup = new Startup(_scheduler);
+            var host = new WebHostBuilder()
+                        .UseKestrel()
+                        .UseContentRoot(Directory.GetCurrentDirectory())
+                        .ConfigureServices(services => services.AddSingleton<IStartup>(startup))
+                        .Build();
+            host.Run(_killToken);
         }
 
         public void Start(string[] startupArguments, ServiceStoppedCallback serviceStoppedCallback)

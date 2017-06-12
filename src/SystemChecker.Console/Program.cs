@@ -1,15 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading;
-using SystemChecker.Model;
-using SystemChecker.Model.Data;
+using DasMulli.Win32.ServiceUtils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using DasMulli.Win32.ServiceUtils;
-using System.Linq;
 using Microsoft.Extensions.PlatformAbstractions;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using SystemChecker.Model;
+using SystemChecker.Model.Data;
 
 namespace SystemChecker.Console
 {
@@ -50,17 +48,18 @@ namespace SystemChecker.Console
 #endif
 
                 var repoFactory = new DapperRepositoryFactory(connectionString);
-                
-                var svc = new SystemCheckerRunner(repoFactory, logger);
+                var hostCancellationToken = new CancellationTokenSource();
+                var svc = new SystemCheckerRunner(repoFactory, logger, hostCancellationToken.Token);
 
                 if (args.Any(x => x == "--service" || x == "-s"))
                 {
                     var serviceHost = new Win32ServiceHost(svc);
+
                     serviceHost.Run();
                 }
                 else
                 {
-                    var hostCancellationToken = new CancellationTokenSource();
+                    
 
                     System.Console.CancelKeyPress += delegate
                     {
@@ -70,24 +69,10 @@ namespace SystemChecker.Console
                         hostCancellationToken.Cancel(false);
                     };
 
-                    // Start the windows service
-
                     svc.Start();
-
-                    // Start http service for realtime updates via web sockets
-                    
-                    var startup = new Startup(svc.Scheduler);
-
-                    var host = new WebHostBuilder()
-                        .UseKestrel()
-                        .UseContentRoot(Directory.GetCurrentDirectory())
-                        .ConfigureServices(services => services.AddSingleton<IStartup>(startup))
-                        .Build();
-                    host.Run(hostCancellationToken.Token);
 
                     // thread kept open here by web host
 
-                    logger.LogInformation("Http shutdown");
                     logger.LogInformation("Shutting down service..");
                     
                     svc.Stop();

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace SystemChecker.Console
+namespace SystemChecker.Model
 {
     public class Startup : IStartup
     {
