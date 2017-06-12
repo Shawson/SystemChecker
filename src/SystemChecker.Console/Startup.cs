@@ -23,7 +23,6 @@ namespace SystemChecker.Console
 
         public void Configure(IApplicationBuilder app)
         {
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/websockets
             var webSocketOptions = new WebSocketOptions()
             {
                 KeepAliveInterval = TimeSpan.FromSeconds(120),

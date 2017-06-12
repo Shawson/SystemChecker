@@ -85,13 +85,7 @@ namespace SystemChecker.Console
                         .Build();
                     host.Run(hostCancellationToken.Token);
 
-                    /*
-                     * web host process now holds the thread open
-                    while (!_killSwitch)
-                    {
-                        Thread.Sleep(1000);
-                    }
-                    */
+                    // thread kept open here by web host
 
                     logger.LogInformation("Http shutdown");
                     logger.LogInformation("Shutting down service..");
