@@ -1,10 +1,25 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<p *ngIf="!check"><em>Loading...</em></p>
 
-</body>
-</html>
+<div *ngIf="check">
+
+    <h1>{{check.systemName}}</h1>
+   
+    
+    {{ check.checkId }}
+    {{ check.checkSuiteId }}
+    
+    <!--
+    <div class="form-group">
+        <label for="">System Name</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="systemNameHelp" [(ngModel)]="check.systemName">
+        <small id="systemNameHelp" class="form-text text-muted">A meaningful name for the test.</small>
+    </div>
+        -->
+
+    {{ check.disabled }}
+
+    {{ check.settings }}
+    {{ check.triggers }}
+    {{ check.outcomes }}
+
+</div>

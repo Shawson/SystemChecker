@@ -18,9 +18,16 @@ export class CheckService {
             .catch(this.handleError);
     }
 
+    getCheck(id: number): Observable<Check> {
+        return this.http
+            .get(this.originUrl + '/api/Check/GetById/' + id)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
 
     private handleError(error: Response | any) {
