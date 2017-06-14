@@ -1,6 +1,8 @@
 ﻿import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Check, CheckService } from '../../services/check.service'
+
+import { Check, CheckSuite, CheckService } from '../../services/check.service'
+import { DictionaryEditorComponent } from '../dictionary-editor/dictionary-editor.component'
 
 @Component({
     selector: 'check-editor',
@@ -11,6 +13,7 @@ import { Check, CheckService } from '../../services/check.service'
 export class CheckEditorComponent {
 
     public check: Check;
+    public checkSuites: CheckSuite[];
 
     constructor(private checkService: CheckService, private route: ActivatedRoute) {
 
@@ -24,6 +27,8 @@ export class CheckEditorComponent {
                     });
             }
         });
+
+        checkService.getCheckSuites().subscribe(data => this.checkSuites = data);
     }
 
     save() {

@@ -5,11 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw'
 
 @Injectable()
 export class CheckService {
 
     constructor(private http: Http, @Inject('ORIGIN_URL') private originUrl: string) { }
+
+    checkSuiteCache: CheckSuite[];
 
     getAllChecks(): Observable<Check[]> {
         return this.http
@@ -21,8 +26,35 @@ export class CheckService {
     getCheck(id: number): Observable<Check> {
         return this.http
             .get(this.originUrl + '/api/Check/GetById/' + id)
-            .map(this.extractData)
+            .map((res: Response) => {
+                let body = res.json();
+
+                // get rid of tabs, these are one liners anyway
+                var settingsJson = body.settings;
+                if (settingsJson) {
+                    settingsJson = settingsJson.replace(/\t/g, '');
+                    settingsJson = settingsJson.replace(/\r\n/g, '');
+                }
+
+                body.settings = JSON.parse(settingsJson);
+                body.outcomes = JSON.parse(body.outcomes);
+                body.triggers = JSON.parse(body.triggers);
+                return body || {};
+            })
             .catch(this.handleError);
+    }
+
+    getCheckSuites(): Observable<CheckSuite[]> {
+        if (!this.checkSuiteCache) {
+            return this.http
+                .get(this.originUrl + '/api/CheckSuite/GetAll')
+                .map(this.extractData)
+                .do(checkSuites => this.checkSuiteCache = checkSuites)
+                .catch(this.handleError);
+        }
+        else {
+            return Observable.of(this.checkSuiteCache);
+        }
     }
 
     private extractData(res: Response) {
@@ -51,8 +83,17 @@ export class Check {
     checkTypeId: number;
     disabled: number;
     outcomes: string;
-    settings: string;
+    settings: Dictionary;
     systemName: string;
     triggers: string;
     updated: string;
+}
+
+export interface Dictionary {
+    [index: string]: string
+}
+
+export class CheckSuite {
+    checkSuiteId: number;
+    suiteName: string;
 }

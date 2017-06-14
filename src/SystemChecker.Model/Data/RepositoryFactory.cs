@@ -30,5 +30,10 @@ namespace SystemChecker.Model.Data
         {
             return new CheckTriggerRepository(new SqlConnection(connectionString));
         }
+
+        public ICheckSuiteRepository GetCheckSuiteRepository()
+        {
+            return new CheckSuiteRepository(new SqlConnection(connectionString));
+        }
     }
 }

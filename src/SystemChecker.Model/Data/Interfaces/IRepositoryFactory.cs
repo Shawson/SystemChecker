@@ -12,5 +12,6 @@ namespace SystemChecker.Model.Data.Interfaces
         ICheckToPerformRepository GetCheckToPerformRepository();
         ICheckResultRepository GetCheckResultRepository();
         ICheckTriggerRepository GetCheckTriggerRepository();
+        ICheckSuiteRepository GetCheckSuiteRepository();
     }
 }

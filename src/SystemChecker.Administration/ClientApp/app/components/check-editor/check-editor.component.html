@@ -1,25 +1,45 @@
-﻿<p *ngIf="!check"><em>Loading...</em></p>
+﻿<p *ngIf="!check || !checkSuites"><em>Loading...</em></p>
 
-<div *ngIf="check">
+<div *ngIf="check && checkSuites" class="container">
 
     <h1>{{check.systemName}}</h1>
+
+    <pre>
+{{check | json}}
+</pre>
    
-    
-    {{ check.checkId }}
-    {{ check.checkSuiteId }}
-    
-    <!--
-    <div class="form-group">
-        <label for="">System Name</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="systemNameHelp" [(ngModel)]="check.systemName">
-        <small id="systemNameHelp" class="form-text text-muted">A meaningful name for the test.</small>
-    </div>
-        -->
+    <form #checkForm="ngForm">
 
-    {{ check.disabled }}
+        <div class="form-group">
+            <label>Check Id</label>
+            <span class="form-control">{{ check.checkId }}</span>
+        </div>
 
-    {{ check.settings }}
-    {{ check.triggers }}
-    {{ check.outcomes }}
+        <div class="form-group">
+            <label for="checkSuiteId">Check Suite</label>
+            <select class="form-control" id="checkSuiteId" aria-describedby="checkSuiteIdHelp"
+                    required
+                    [(ngModel)]="check.checkSuiteId" name="checkSuiteId">
+                <option *ngFor="let suite of checkSuites" [value]="suite.checkSuiteId">{{ suite.suiteName }}</option>
+            </select>
+            <small id="checkSuiteIdHelp" class="form-text text-muted">Which suite of tests this belongs to.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="systemName">System Name</label>
+            <input type="text" class="form-control" id="systemName" aria-describedby="systemNameHelp" 
+                   required 
+                   [(ngModel)]="check.systemName" name="systemName">
+            <small id="systemNameHelp" class="form-text text-muted">A meaningful name for the test.</small>
+        </div>
+
+        {{ check.disabled }}
+
+        <dictionary-editor [dictionary]="check.settings"></dictionary-editor>
+
+        {{ check.settings }}
+        {{ check.triggers }}
+        {{ check.outcomes }}
+    </form>
 
 </div>

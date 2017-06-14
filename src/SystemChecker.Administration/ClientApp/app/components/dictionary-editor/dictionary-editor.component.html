@@ -1,0 +1,26 @@
+﻿
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Setting</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let key of keys();">
+            <td>
+                {{key}}
+            </td>
+            <td>
+                <input type="text" [(ngModel)]="dictionary[key]" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    <li *ngFor="let key of keys();">
+    
+        <label>{{key}}</label>
+        {{dictionary[key]}}
+    </li>
+</ul>
