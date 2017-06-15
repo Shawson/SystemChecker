@@ -1,0 +1,17 @@
+﻿
+<table *ngIf="rule">
+    <tr>
+        <td>
+            {{rule.Operator}}
+            <input type="text" [(ngModel)]="rule.ValueA" />
+            {{ rule.Comparator}}
+            <input type="text" [(ngModel)]="rule.ValueB" />
+
+        </td>
+        <td>
+            <div *ngFor="let jarule of rule.Rules">
+                <rule-editor [rule]="jarule"></rule-editor>
+            </div>
+        </td>
+    </tr>
+</table>

@@ -81,15 +81,40 @@ export class Check {
     checkId: number;
     checkSuiteId: number;
     checkTypeId: number;
-    disabled: number;
-    outcomes: string;
-    settings: Dictionary;
+    disabled: Date;
+    get disabledChecked(): boolean {
+        return this.disabled != null;
+    }
+    set disabledChecked(newval: boolean) 
+    {
+        this.disabled = new Date();
+    }
+    outcomes: Outcome[];
+    settings: DictionaryStringIndex;
     systemName: string;
     triggers: string;
     updated: string;
 }
 
-export interface Dictionary {
+export class Outcome {
+    successStatus: number;
+    description: string;
+    conditions: Condition[];
+}
+
+export class Condition {
+    rules: Rule[];
+}
+
+export class Rule {
+    rules: Rule[];
+    operator: number;
+    valueA: string;
+    valueB: string;
+    comparator: number;
+}
+
+export interface DictionaryStringIndex {
     [index: string]: string
 }
 

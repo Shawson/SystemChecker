@@ -4,9 +4,7 @@
 
     <h1>{{check.systemName}}</h1>
 
-    <pre>
-{{check | json}}
-</pre>
+    <pre>{{check | json}}</pre>
    
     <form #checkForm="ngForm">
 
@@ -33,13 +31,33 @@
             <small id="systemNameHelp" class="form-text text-muted">A meaningful name for the test.</small>
         </div>
 
-        {{ check.disabled }}
+        <div class="form-group">
+            <label for="checkDisabled">Disabled</label>
+            <input type="checkbox" class="form-control" id="checkDisabled" aria-describedby="disabledHelp"
+                   [(ngModel)]="check.disabledChecked" name="checkDisabled">
+            <small id="disabledHelp" class="form-text text-muted">Temporarily disable a test.  Effective as of next run time.</small>
+        </div>
 
-        <dictionary-editor [dictionary]="check.settings"></dictionary-editor>
+        <div class="form-group">
+            <label>Settings</label>
+            <dictionary-editor [dictionary]="check.settings"></dictionary-editor>
+        </div>
 
-        {{ check.settings }}
-        {{ check.triggers }}
-        {{ check.outcomes }}
+        <div class="form-group">
+            <label>Triggers</label>
+            <pre>{{ check.triggers | json }}</pre>
+        </div>
+        
+        <div class="form-group">
+            <label>Outcomes</label>
+            <div *ngFor="let outcome of check.outcomes">
+                <outcome-editor [outcome]="outcome"></outcome-editor>
+            </div>
+        </div>
+
+        
+        
+        <pre>{{ check.outcomes | json }}</pre>
     </form>
 
 </div>

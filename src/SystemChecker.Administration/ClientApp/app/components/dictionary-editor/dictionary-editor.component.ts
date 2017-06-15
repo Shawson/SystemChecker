@@ -1,5 +1,5 @@
 ﻿import { Component, Input } from '@angular/core';
-import { Dictionary } from '../../services/check.service';
+import { DictionaryStringIndex } from '../../services/check.service';
 
 @Component({
     selector: 'dictionary-editor',
@@ -7,7 +7,7 @@ import { Dictionary } from '../../services/check.service';
 })
 
 export class DictionaryEditorComponent {
-    @Input() dictionary: Dictionary;
+    @Input() dictionary: DictionaryStringIndex;
 
     keys(): Array<string> {
         return Object.keys(this.dictionary);

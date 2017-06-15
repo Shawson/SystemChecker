@@ -1,0 +1,11 @@
+﻿
+{{ outcome.successStatus }}
+
+<table *ngIf="outcome.Condition">
+    <tr>
+        <td *ngFor="let rule of outcome.Condition.Rules">
+            <rule-editor [rule]="rule"></rule-editor>
+        </td>
+    </tr>
+</table>
+ 

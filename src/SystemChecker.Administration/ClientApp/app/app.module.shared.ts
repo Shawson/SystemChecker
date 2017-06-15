@@ -10,8 +10,11 @@ import { CheckListComponent } from './components/check-list/check-list.component
 import { CheckEditorComponent } from './components/check-editor/check-editor.component';
 
 import { DictionaryEditorComponent } from './components/dictionary-editor/dictionary-editor.component'
+import { OutcomeEditorComponent } from './components/outcome-editor/outcome-editor.component'
+import { RuleEditorComponent } from './components/rule-editor/rule-editor.component'
 
 import { CheckService } from './services/check.service';
+import { LookupService } from './services/lookup.service';
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -23,6 +26,8 @@ export const sharedConfig: NgModule = {
         CheckEditorComponent,
 
         DictionaryEditorComponent,
+        OutcomeEditorComponent,
+        RuleEditorComponent,
 
         HomeComponent
     ],
@@ -38,6 +43,7 @@ export const sharedConfig: NgModule = {
         ])
     ],
     providers: [
-        CheckService
+        CheckService,
+        LookupService
     ]
 };

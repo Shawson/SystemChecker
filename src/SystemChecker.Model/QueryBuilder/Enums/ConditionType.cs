@@ -4,6 +4,6 @@
     {
         AND,
         OR,
-        //NOT
+        NOT
     }
 }
