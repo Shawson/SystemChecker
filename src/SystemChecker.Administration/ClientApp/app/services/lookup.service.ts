@@ -1,50 +1,42 @@
-﻿import { Inject, Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+﻿import { Inject, Injectable } from "@angular/core";
+import { Http, Response } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw'
+import { IDictionaryNumericIndex, ILookupService } from "../interfaces";
 
 @Injectable()
-export class LookupService {
+export class LookupService implements ILookupService {
+    private comparators: IDictionaryNumericIndex;
+    private operators: IDictionaryNumericIndex;
 
-    constructor(private http: Http, @Inject('ORIGIN_URL') private originUrl: string) { }
+    constructor(private http: Http, @Inject("ORIGIN_URL") private originUrl: string) { }
 
-    comparators: DictionaryNumericIndex;
-    operators: DictionaryNumericIndex;
-
-    getComparators(): Observable<DictionaryNumericIndex> {
+    public getComparators(): Observable<IDictionaryNumericIndex> {
         if (!this.comparators) {
             return this.http
-                .get(this.originUrl + '/api/Lookup/Comparators')
+                .get(this.originUrl + "/api/Lookup/Comparators")
                 .map(this.extractData)
                 .do(data => this.comparators = data)
                 .catch(this.handleError);
-        }
-        else {
+        } else {
             return Observable.of(this.comparators);
         }
     }
 
-    getOperators(): Observable<DictionaryNumericIndex> {
+    public getOperators(): Observable<IDictionaryNumericIndex> {
         if (!this.operators) {
             return this.http
-                .get(this.originUrl + '/api/Lookup/Operators')
+                .get(this.originUrl + "/api/Lookup/Operators")
                 .map(this.extractData)
                 .do(data => this.operators = data)
                 .catch(this.handleError);
-        }
-        else {
+        } else {
             return Observable.of(this.operators);
         }
     }
 
     private extractData(res: Response) {
-        let body = res.json();
+        const body = res.json();
         return body || {};
     }
 
@@ -52,17 +44,13 @@ export class LookupService {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
-            const body = error.json() || '';
+            const body = error.json() || "";
             const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+            errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
         } else {
             errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
-}
-
-export interface DictionaryNumericIndex {
-    [index: number]: string
 }

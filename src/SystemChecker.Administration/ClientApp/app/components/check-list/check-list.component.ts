@@ -1,24 +1,25 @@
-﻿import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Check, CheckService } from '../../services/check.service'
+﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ICheck } from "../../interfaces";
+import { CheckService } from "../../services/check.service";
 
 @Component({
-    selector: 'check-list',
-    templateUrl: './check-list.component.html',
-    providers: [CheckService]
+    selector: "check-list",
+    templateUrl: "./check-list.component.html",
 })
-export class CheckListComponent {
-    public checks: Check[];
+export class CheckListComponent implements OnInit {
+    public checks: ICheck[];
 
-    constructor(private checkService: CheckService, private router: Router) {
+    constructor(private checkService: CheckService, private router: Router) { }
 
-        checkService.getAllChecks().subscribe(
+    public ngOnInit() {
+        this.checkService.getAllChecks().subscribe(
             lookup => {
                 this.checks = lookup;
             });
     }
 
-    detail(check: Check) {
-        this.router.navigate(['/check-editor', check.checkId]);
+    public detail(check: ICheck) {
+        this.router.navigate(["/check-editor", check.checkId]);
     }
 }

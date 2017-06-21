@@ -1,24 +1,22 @@
-﻿import { Component, Input } from '@angular/core';
-import { Condition, Rule } from '../../services/check.service';
+﻿import { Component, Input, OnInit } from "@angular/core";
 
-import { LookupService, DictionaryNumericIndex } from '../../services/lookup.service'
+import { IDictionaryNumericIndex, IRule } from "../../interfaces";
+import { LookupService } from "../../services/lookup.service";
 
 @Component({
-    selector: 'rule-editor',
-    templateUrl: './rule-editor.component.html',
-    providers: [ LookupService ]
+    selector: "rule-editor",
+    templateUrl: "./rule-editor.component.html",
 })
+export class RuleEditorComponent implements OnInit {
+    @Input() public rule: IRule;
 
-export class RuleEditorComponent {
-    @Input() rule: Rule;
+    public comparators: IDictionaryNumericIndex;
+    public operators: IDictionaryNumericIndex;
 
-    public comparators: DictionaryNumericIndex;
-    public operators: DictionaryNumericIndex;
+    constructor(private lookupService: LookupService) { }
 
-    constructor(private lookupService: LookupService) {
-
-        lookupService.getComparators().subscribe(data => this.comparators = data);
-        lookupService.getOperators().subscribe(data => this.operators = data);
-
+    public ngOnInit() {
+        this.lookupService.getComparators().subscribe(data => this.comparators = data);
+        this.lookupService.getOperators().subscribe(data => this.operators = data);
     }
 }

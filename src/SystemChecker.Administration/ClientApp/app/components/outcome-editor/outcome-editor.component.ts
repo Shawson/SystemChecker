@@ -1,11 +1,10 @@
-﻿import { Component, Input } from '@angular/core';
-import { Outcome, Condition, Rule } from '../../services/check.service';
+﻿import { Component, Input } from "@angular/core";
+import { IOutcome } from "../../interfaces";
 
 @Component({
-    selector: 'outcome-editor',
-    templateUrl: './outcome-editor.component.html',
+    selector: "outcome-editor",
+    templateUrl: "./outcome-editor.component.html",
 })
-
 export class OutcomeEditorComponent {
-    @Input() outcome: Outcome;
+    @Input() public outcome: IOutcome;
 }

@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
     "target": "es5",
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipDefaultLibCheck": true,
     "lib": [ "es6", "dom" ],
-    "types": [ "node" ]
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "alwaysStrict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "plugins": [
+      {
+        "name": "tslint-language-service",
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "disableNoUnusedVariableRule": true
+      }
+    ]
   },
-  "exclude": [ "bin", "node_modules" ],
-  "atom": { "rewriteTsconfig": false }
+  "exclude": [ "bin", "node_modules" ]
 }

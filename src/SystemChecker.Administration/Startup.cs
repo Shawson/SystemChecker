@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using SystemChecker.Model.Data;
 using SystemChecker.Model.Data.Interfaces;
 
-namespace SystemChecker_Administration
+namespace SystemChecker.Administration
 {
     public class Startup
     {

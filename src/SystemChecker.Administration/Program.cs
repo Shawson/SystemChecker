@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace SystemChecker_Administration
+namespace SystemChecker.Administration
 {
     public class Program
     {

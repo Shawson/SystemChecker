@@ -1,15 +1,14 @@
-﻿import { Component, Input } from '@angular/core';
-import { DictionaryStringIndex } from '../../services/check.service';
+﻿import { Component, Input } from "@angular/core";
+import { IDictionaryStringIndex } from "../../interfaces";
 
 @Component({
-    selector: 'dictionary-editor',
-    templateUrl: './dictionary-editor.component.html',
+    selector: "dictionary-editor",
+    templateUrl: "./dictionary-editor.component.html",
 })
-
 export class DictionaryEditorComponent {
-    @Input() dictionary: DictionaryStringIndex;
+    @Input() public dictionary: IDictionaryStringIndex;
 
-    keys(): Array<string> {
+    public keys(): string[] {
         return Object.keys(this.dictionary);
     }
 }

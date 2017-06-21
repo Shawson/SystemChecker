@@ -235,3 +235,9 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+
+**.js
+**.js.map
+!gulpfile.js
+!ClientApp/test/karma.conf.js

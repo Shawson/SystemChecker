@@ -1,37 +1,36 @@
-﻿import { Component, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
 
-import { Check, CheckSuite, CheckService } from '../../services/check.service'
-import { DictionaryEditorComponent } from '../dictionary-editor/dictionary-editor.component'
+import { ICheck, ICheckSuite } from "../../interfaces";
+import { CheckService } from "../../services/check.service";
 
 @Component({
-    selector: 'check-editor',
-    templateUrl: './check-editor.component.html',
-    providers: [CheckService]
+    selector: "check-editor",
+    templateUrl: "./check-editor.component.html",
 })
+export class CheckEditorComponent implements OnInit {
 
-export class CheckEditorComponent {
+    public check: ICheck;
+    public checkSuites: ICheckSuite[];
 
-    public check: Check;
-    public checkSuites: CheckSuite[];
+    constructor(private checkService: CheckService, private route: ActivatedRoute) { }
 
-    constructor(private checkService: CheckService, private route: ActivatedRoute) {
-
+    public ngOnInit() {
         this.route.params.forEach((params: Params) => {
 
-            let checkId = +params['id']; // (+) converts string 'id' to a number
+            const checkId = parseInt(params.id);
             if (checkId > 0) {
-                checkService.getCheck(checkId).subscribe(
+                this.checkService.getCheck(checkId).subscribe(
                     data => {
                         this.check = data;
                     });
             }
         });
 
-        checkService.getCheckSuites().subscribe(data => this.checkSuites = data);
+        this.checkService.getCheckSuites().subscribe(data => this.checkSuites = data);
     }
 
-    save() {
-        console.log('saving...');
+    public save() {
+        console.log("saving...");
     }
 }
